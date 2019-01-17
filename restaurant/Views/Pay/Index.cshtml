@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "Thanh toán";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+
+    <div id="container-pay">
+
+        <div>
+            <table id="table-pay" class="table table-responsive-md">
+                <thead>
+                    <tr>
+                        <th>Mã hóa đơn</th>
+                        <th>Số bàn</th>
+                        <th>Tên khách</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewBag.ListInvoice)
+                    {
+                    <tr>
+                        <td>@item.id</td>
+                        <td>@item.tableID</td>
+                        <td>@item.customerName</td>
+                        <td><a href="@Url.Action("PayDetails", new { invoiceID = item.id })" class="fas fa-info-circle fa-2x" role="button"></a></td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+

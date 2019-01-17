@@ -1,0 +1,106 @@
+﻿
+@{
+    ViewBag.Title = "Gọi món";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div id="container-order">
+
+        <div class="row">
+            <div class="col-sm-12 col-md-5">
+
+                <div>
+                    <div class="container-flex">
+                        <span class="title">Gọi món</span>
+                    </div>
+
+                    @using (Html.BeginForm("CreateInvoiceDetails", "Order", FormMethod.Post, new { @id = "form-order" }))
+                    {
+                        <div class="form-group">
+                            <label for="tableID">Chọn bàn:</label>
+                            @Html.DropDownList("tableID", (IEnumerable<SelectListItem>)ViewBag.ListTable, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            <label for="productID">Chọn món:</label>
+                            @Html.DropDownList("productID", (IEnumerable<SelectListItem>)ViewBag.ListProduct, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            <label for="quantityProduct">Số lượng:</label>
+                            <input type="text" name="quantity" class="form-control" required />
+                        </div>
+                        <input type="hidden" id="invoiceID" name="invoiceID" value=@ViewBag.InvoiceID>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success" style="width: 100%">Chọn</button>
+                        </div>
+                    }
+
+                </div>
+
+            </div>
+
+            <div class="col-sm-12 col-md-7">
+
+                <div>
+                    <div class="container-flex">
+                        <span class="title">Đang chờ</span>
+                    </div>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Tên món</th>
+                                <th>Số lượng</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in ViewBag.ListOrder)
+                            {
+                                <tr>
+                                    <td>@item.Product.productName</td>
+                                    <td>@item.quantity</td>
+                                    <td>
+                                        <a href="@Url.Action("DeleteInvoiceDetails" ,new { invoiceDetailsID = item.id, tableID =  item.Invoice.tableID})" class="fa fa-trash-alt" style="font-size: 20px; color: red;"></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+        <div>
+
+            <div class="container-flex">
+                <span class="title blockquote text-center">Món ăn đã gọi</span>
+            </div>
+
+            <table class="table table-hover .table-bordered">
+                <thead>
+                    <tr>
+                        <th>Tên món</th>
+                        <th>Đơn giá</th>
+                        <th>Số lượng</th>
+                        <th>Thành tiền</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewBag.ListInvoiceDetail)
+                    {
+                        <tr>
+                            <td>@item.Product.productName</td>
+                            <td>@item.Product.price</td>
+                            <td>@item.quantity</td>
+                            <td>@(item.quantity * item.Product.price)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+</div>
+
