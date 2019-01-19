@@ -27,11 +27,11 @@
                         </div>
                         <div class="form-group">
                             <label for="quantityProduct">Số lượng:</label>
-                            <input type="text" name="quantity" class="form-control" required />
+                            <input id="quantity-order" type="text" name="quantity" class="form-control" required />
                         </div>
                         <input type="hidden" id="invoiceID" name="invoiceID" value=@ViewBag.InvoiceID>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-success" style="width: 100%">Chọn</button>
+                            <button type="submit" id="btn-submit-order" class="btn btn-success" style="width: 100%">Chọn</button>
                         </div>
                     }
 

@@ -1,14 +1,40 @@
 ﻿$(document).ready(function () {
 
-    ////Validate form page order
-    //$("#form-order").validate({
-    //    rules: {
-    //        quantity: "required"
-    //    },
-    //    messages: {
-    //        quantity: "Vui lòng chọn số lượng!"
-    //    }
-    //});
+    //Hub
+
+    var hub = $.connection.restaurantHub;
+
+    hub.client.addNewOrderForKitChen = function (listInvoiceWatting) {
+        var html = `<table class="table">
+                        <thead>
+                            <tr>
+                                <th>Tên món</th>
+                                <th>Số lượng</th>
+                            </tr>
+                        </thead>
+                        <tbody>`;
+
+        listInvoiceWatting.forEach(item => {
+            html += `<tr>
+                        <td>${item.tableID}</td>
+                        <td>${item.productName}</td>
+                        <td>${item.quantity}</td>
+                        <td><a href="/Kitchen/Complete?invoiceDetailsID=${item.id}" class="glyphicon glyphicon-ok"></a></td>
+                    </tr>`;
+        });
+
+        html += `   </tbody>
+                </table>`;
+
+        $('#table-kitchen').html(html);
+    };
+
+    $.connection.hub.start().done(function () {
+        $('#btn-submit-order').click(function () {
+            hub.server.addNewOrder();
+        });
+    });
+
 
     //Event onchange dropdown page order
     $("#tableID").change(function () {
@@ -29,7 +55,6 @@
         });
         price *= 1000;
         $("#totalPricePay").text("Tổng tiền: " + price.toFixed(0).replace(/(\d)(?=(\d{3})+\b)/g, "$1,"));
-        console.log(price);
     }
 
 });
