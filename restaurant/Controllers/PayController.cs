@@ -12,6 +12,7 @@ namespace restaurant.Controllers
     {
         private InvoiceDAO invoiceDAO = new InvoiceDAO();
         private InvoiceDetailsDAO invoiceDetailsDAO = new InvoiceDetailsDAO();
+        private TableDAO tableDAO = new TableDAO();
 
         // GET: Pay
         public ActionResult Index()
@@ -22,14 +23,16 @@ namespace restaurant.Controllers
 
         public ActionResult PayDetails(string invoiceID)
         {
-            SetViewBagForDetails(invoiceID);
+            ViewBag.Invoice = invoiceDAO.GetInvoiceById(invoiceID);
+            ViewBag.ListInvoiceDetails = invoiceDetailsDAO.GetAllByInvoiceID(invoiceID).Where(item => item.status == false);
             return View("Details");
         }
 
-        private void SetViewBagForDetails(string invoiceID)
+        public ActionResult PayInvoice(string invoiceID, string tableID)
         {
-            ViewBag.Invoice = invoiceDAO.GetInvoiceById(invoiceID);
-            ViewBag.ListInvoiceDetails = invoiceDetailsDAO.GetAllByInvoiceID(invoiceID).Where(item => item.status == false);
+            tableDAO.ChangeStatus(tableID);
+            invoiceDAO.SetOffStatus(invoiceID);
+            return RedirectToAction("Index");
         }
     }
 }

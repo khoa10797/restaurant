@@ -40,5 +40,12 @@ namespace Models.DAO
         {
             return dbContext.Invoices.Where(invoice => invoice.status == true);
         }
+
+        public void SetOffStatus(string invoiceID)
+        {
+            var invoice = dbContext.Invoices.First(item => item.id == invoiceID);
+            invoice.status = false;
+            dbContext.SaveChanges();
+        }
     }
 }

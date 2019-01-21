@@ -11,12 +11,40 @@ namespace restaurant
     public class RestaurantHub : Hub
     {
         private InvoiceDetailsDAO invoiceDetailsDAO = new InvoiceDetailsDAO();
-        private ProductDAO productDAO = new ProductDAO();
 
-        public void AddNewOrder()
+        public void AddNewOrder(string tableID, string invoiceID, string productID, byte quantity)
         {
-            var listInvoiceWatting = invoiceDetailsDAO.GetAllInvoiceDetailsWaiting().Select(item => new { item.Invoice.tableID, item.Product.productName, item.quantity, item.id });
-            Clients.All.addNewOrderForKitChen(listInvoiceWatting);
+            InvoiceDetail invoiceDetail = new InvoiceDetail()
+            {
+                id = Common.CreateKey.InvoiceDetails(tableID),
+                invoiceID = invoiceID,
+                productID = productID,
+                quantity = quantity,
+                status = true
+            };
+            invoiceDetailsDAO.Add(invoiceDetail);
+
+            UpdateWaittingFoodForClients();
+        }
+
+        public void RemoveOrder(string invoiceDetailsId)
+        {
+            invoiceDetailsDAO.Remove(invoiceDetailsId);
+
+            UpdateWaittingFoodForClients();
+        }
+
+        private void UpdateWaittingFoodForClients()
+        {
+            var listInvoiceWatting = invoiceDetailsDAO.GetAllInvoiceDetailsWaiting().Select(item => new
+            {
+                item.Invoice.tableID,
+                item.Product.productName,
+                item.quantity,
+                item.id
+            });
+
+            Clients.All.updateWaittingFood(listInvoiceWatting);
         }
     }
 }

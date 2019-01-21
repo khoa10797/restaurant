@@ -1,22 +1,23 @@
-﻿
-.container-flex {
-    display: flex;
-    justify-content: center;
-}
-
-.flex-col {
+﻿.flex-col {
     flex-direction: column;
 }
 
 .title {
-    margin: 20px;
-    color: red;
-    font-size: 30px;
+    margin-bottom: 50px;
     font-weight: 600;
+    color: #ff103c;
 }
 
-/*Menu page*/
+tr td:first-child {
+    color: #1a73e8;
+    font-weight: bold;
+}
 
+.tab-controls {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+/*Menu page*/
 #container-header-menu {
     margin-top: 20px;
 }
@@ -44,8 +45,10 @@
     }
 
 #container-paged-list {
+    display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 50px;
 }
 
 #footer-product {
@@ -62,7 +65,7 @@
 
 /*List table*/
 
-#content-table {
+.content-table {
     width: 100px;
     height: 100px;
     display: flex;
@@ -82,14 +85,22 @@
     margin-bottom: 10px;
 }
 
-#container-table a {
-    text-decoration: none !important;
-    color: none !important;
+#container-table {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.table-active {
+    #container-table a {
+        text-decoration: none !important;
+        color: none !important;
+    }
+
+.table-have-people {
     color: red;
-    border: 2px solid red !important;
+    border: 2px solid red;
+    display: flex;
+    justify-content: center;
 }
 
 .btn-add-invoice {
@@ -112,29 +123,108 @@
     flex-direction: column;
 }
 
-    #container-order > div {
-        margin-top: 25px;
-        margin-bottom: 25px;
-    }
-
 .content-order {
     width: 100%;
 }
+
+#waitting .modal-title {
+    color: #ff103c;
+}
+
+#waitting-food {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+    #waitting-food a {
+        padding-top: 6px;
+        color: #08d208;
+    }
+
+
+#selectTableOrder {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+    #selectTableOrder select {
+        display: block;
+        width: 25%;
+        margin-left: 50px;
+        padding: .375rem .75rem;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #495057;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        border-radius: .25rem;
+        transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    }
 
 /*Kitchen*/
 
 
 /*Pay*/
+
+#table-pay a:hover {
+    text-decoration: none;
+}
+
 #container-pay {
     margin-top: 50px;
     margin-bottom: 50px;
 }
 
-#table-pay td {
-    color: #999;
+#invoice-infomation {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 50px;
 }
 
-#table-pay tr td:first-child {
-    color: #007bff;
-    font-weight: bold;
+.invoice-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+    .invoice-group input {
+        width: 60%;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        border-width: 1px;
+    }
+
+    .invoice-group label {
+        font-weight: bold;
+    }
+
+    .invoice-group > div {
+        width: 60%;
+        float: left;
+        margin-top: -6px;
+    }
+
+        .invoice-group > div span {
+            color: red;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+#invoice-infomation a {
+    margin-top: 20px;
+    width: 100px;
+}
+
+#table-pay-details {
+    margin-bottom: 50px;
+    margin-top: 50px;
 }
