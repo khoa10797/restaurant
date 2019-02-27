@@ -12,6 +12,10 @@ namespace Models.EF
         public string id { get; set; }
 
         [Required]
+        [StringLength(20)]
+        public string tableID { get; set; }
+
+        [Required]
         [StringLength(50)]
         public string invoiceID { get; set; }
 
@@ -26,5 +30,7 @@ namespace Models.EF
         public virtual Invoice Invoice { get; set; }
 
         public virtual Product Product { get; set; }
+
+        public virtual Table Table { get; set; }
     }
 }

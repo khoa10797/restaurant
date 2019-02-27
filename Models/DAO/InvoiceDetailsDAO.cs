@@ -12,14 +12,20 @@ namespace Models.DAO
     {
         private RestaurantDbContext dbContext = new RestaurantDbContext();
 
-        public IQueryable<InvoiceDetail> GetAllByInvoiceID(string invoiceID)
+        public IQueryable<InvoiceDetail> GetAllByInvoiceAndTable(string invoiceID, string tableID)
         {
-            return dbContext.InvoiceDetails.AsQueryable().Where(item => item.invoiceID.Equals(invoiceID)).Include(x => x.Product).Include(x => x.Invoice);
+            return dbContext.InvoiceDetails
+                .AsQueryable()
+                .Where(item => item.invoiceID == invoiceID && item.tableID == tableID)
+                .Include(x => x.Product)
+                .Include(x => x.Invoice);
         }
 
         public IQueryable<InvoiceDetail> GetAllInvoiceDetailsWaiting()
         {
-            return dbContext.InvoiceDetails.Where(item => item.status == true).Include(x => x.Product).Include(x => x.Invoice);
+            return dbContext.InvoiceDetails.Where(item => item.status == true)
+                .Include(x => x.Product)
+                .Include(x => x.Invoice);
         }
 
         public InvoiceDetail FindById(string id)

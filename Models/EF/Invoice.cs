@@ -13,14 +13,11 @@ namespace Models.EF
         public Invoice()
         {
             InvoiceDetails = new HashSet<InvoiceDetail>();
+            Tables = new HashSet<Table>();
         }
 
         [StringLength(50)]
         public string id { get; set; }
-
-        [Required]
-        [StringLength(20)]
-        public string tableID { get; set; }
 
         [StringLength(50)]
         public string customerName { get; set; }
@@ -30,9 +27,10 @@ namespace Models.EF
 
         public bool? status { get; set; }
 
-        public virtual Table Table { get; set; }
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<InvoiceDetail> InvoiceDetails { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Table> Tables { get; set; }
     }
 }

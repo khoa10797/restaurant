@@ -64,6 +64,7 @@
                     </div>
                 </div>
 
+                <!-- Table watting food -->
                 <table class="table">
                     <thead>
                         <tr>
@@ -78,7 +79,7 @@
                                 <td>@item.Product.productName</td>
                                 <td>@item.quantity</td>
                                 <td>
-                                    <a class="remove-order fa fa-trash-alt" data-id="@item.id" data-values="@item.Invoice.tableID" style="font-size: 20px; color: red;"></a>
+                                    <a class="remove-order fa fa-trash-alt" data-id="@item.id" data-values="@ViewBag.TableID" style="font-size: 20px; color: red;"></a>
                                 </td>
                             </tr>
                         }
@@ -93,7 +94,7 @@
                     <h2>Món ăn đã gọi</h2>
                 </div>
 
-                <table class="table table-hover .table-bordered">
+                <table id="tableOrderFood" class="table table-hover .table-bordered">
                     <thead>
                         <tr>
                             <th>Tên món</th>
@@ -107,9 +108,9 @@
                         {
                             <tr>
                                 <td>@item.Product.productName</td>
-                                <td>@item.Product.price</td>
+                                <td class="price-product-order" data-values="@item.Product.price"><span class="span-price-product-order"></span></td>
                                 <td>@item.quantity</td>
-                                <td>@(item.quantity * item.Product.price)</td>
+                                <td class="total-price-order" data-values="@(item.quantity * item.Product.price)"><span class="span-total-price-order"></span></td>
                             </tr>
                         }
                     </tbody>

@@ -14,11 +14,11 @@ namespace restaurant.Common
             return tableID + "_" + day[0] + day[1] + day[2] + "_" + time[0] + time[1] + time[2];
         }
 
-        public static string Invoice(string tableID)
+        public static string Invoice()
         {
             string[] day = DateTime.Now.ToShortDateString().Split('/');
             string[] time = DateTime.Now.ToString("HH:mm:ss").Split(':');
-            return "HD_" + tableID + "_" + day[0] + day[1] + day[2] + "_" + time[0] + time[1] + time[2];
+            return "HD" + day[0] + day[1] + day[2] + time[0] + time[1] + time[2];
         }
     }
 }

@@ -25,8 +25,6 @@ namespace Models.EF
         [StringLength(100)]
         public string productName { get; set; }
 
-        public int? quantity { get; set; }
-
         [Column(TypeName = "ntext")]
         public string picture { get; set; }
 

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
+using System.Data.SqlClient;
 
 namespace Models.DAO
 {
@@ -33,7 +34,7 @@ namespace Models.DAO
 
         public Invoice GetLastInvoiceByTableId(string tableID)
         {
-            return dbContext.Invoices.FirstOrDefault(invoices => invoices.tableID.Equals(tableID) && invoices.status == true);
+            return dbContext.Invoices.SqlQuery("SELECT * FROM Invoice WHERE id IN (SELECT invoiceID FROM InvoiceHasTable WHERE tableID = @id) AND status = 1", new SqlParameter("@id", tableID)).First();
         }
 
         public IQueryable<Invoice> GetAllUnpayInvoice()

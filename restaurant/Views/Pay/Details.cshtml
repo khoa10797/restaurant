@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Thanh toán";
+    ViewBag.Title = "Hóa đơn";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -22,27 +22,23 @@
             <div id="invoice-infomation">
                 <div class="invoice-group">
                     <label>Mã hóa đơn:</label>
-                    <input type="text" readonly value="@ViewBag.Invoice.id" />
-                </div>
-                <div class="invoice-group">
-                    <label>Số bàn:</label>
-                    <input type="text" readonly value="@ViewBag.Invoice.tableID" />
+                    <span>@ViewBag.Invoice.id</span>
                 </div>
                 <div class="invoice-group">
                     <label>Tên khách:</label>
-                    <input type="text" readonly value="@ViewBag.Invoice.customerName" />
+                    <span>@ViewBag.Invoice.customerName</span>
                 </div>
                 <div class="invoice-group">
                     <label>Số điện thoại:</label>
-                    <input type="text" readonly value="@ViewBag.Invoice.customerPhone" />
+                    <span>@ViewBag.Invoice.customerPhone</span>
                 </div>
                 <div class="invoice-group">
                     <label>Tổng tiền:</label>
                     <div>
-                        <span id="invoice-price"></span><span>VNĐ</span>
+                        <span id="invoice-price"></span><span> VNĐ</span>
                     </div>
                 </div>
-                <a href="@Url.Action("PayInvoice", new { invoiceID = ViewBag.Invoice.id, tableID = ViewBag.Invoice.tableID })" class="btn btn-primary">Xong</a>
+                <a href="@Url.Action("PayInvoice", new { invoiceID = ViewBag.Invoice.id})" class="btn btn-primary">Xong</a>
             </div>
         </div>
 
@@ -52,6 +48,7 @@
                 <thead>
                     <tr>
                         <th>Tên món</th>
+                        <th>Số bàn</th>
                         <th>Số lượng</th>
                         <th>Đơn giá</th>
                         <th>Thành tiền</th>
@@ -62,9 +59,10 @@
                     {
                         <tr>
                             <td>@item.Product.productName</td>
+                            <td>@item.Table.id</td>
                             <td>@item.quantity</td>
-                            <td>@item.Product.price</td>
-                            <td data-values="@(item.quantity * item.Product.price)"><span class="price-product"></span></td>
+                            <td data-price="@item.Product.price"><span class="price-product"></span></td>
+                            <td data-values="@(item.quantity * item.Product.price)"><span class="total-price-product"></span></td>
                         </tr>
                     }
                 </tbody>

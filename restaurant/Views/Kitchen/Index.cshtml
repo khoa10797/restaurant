@@ -24,7 +24,7 @@
                 @foreach (var item in ViewBag.ListOrder)
                 {
                     <tr>
-                        <td>@item.Invoice.tableID</td>
+                        <td>@item.tableID</td>
                         <td>@item.Product.productName</td>
                         <td>@item.quantity</td>
                         <td><a href="@Url.Action("Complete" ,new { invoiceDetailsID = item.id })" class="glyphicon glyphicon-ok"></a></td>

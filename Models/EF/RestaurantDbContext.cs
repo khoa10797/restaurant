@@ -22,6 +22,11 @@ namespace Models.EF
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Invoice>()
+                .HasMany(e => e.Tables)
+                .WithMany(e => e.Invoices)
+                .Map(m => m.ToTable("InvoiceHasTable").MapLeftKey("invoiceID").MapRightKey("tableID"));
+
             modelBuilder.Entity<ProductCategory>()
                 .HasMany(e => e.Products)
                 .WithRequired(e => e.ProductCategory)

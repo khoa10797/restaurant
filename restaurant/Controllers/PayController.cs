@@ -5,6 +5,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
+using Models.EF;
+using PagedList;
+using System.IO;
 
 namespace restaurant.Controllers
 {
@@ -15,24 +18,65 @@ namespace restaurant.Controllers
         private TableDAO tableDAO = new TableDAO();
 
         // GET: Pay
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
             ViewBag.ListInvoice = invoiceDAO.GetAllUnpayInvoice();
-            return View();
+            var tables = tableDAO.GetAllTable();
+            int pageSize = 20;
+            int pageNumber = (page ?? 1);
+            return View(tables.OrderBy(table => table.id).ToPagedList(pageNumber, pageSize));
         }
 
         public ActionResult PayDetails(string invoiceID)
         {
+            List<Table> tables = tableDAO.GetAllTableByInvoiceId(invoiceID);
+            List<InvoiceDetail> invoiceDetails = new List<InvoiceDetail>();
+
+            tables.ForEach(table =>
+            {
+                invoiceDetailsDAO.GetAllByInvoiceAndTable(invoiceID, table.id).ToList().ForEach(invoiceDetail =>
+                {
+                    invoiceDetails.Add(invoiceDetail);
+                });
+            });
+
             ViewBag.Invoice = invoiceDAO.GetInvoiceById(invoiceID);
-            ViewBag.ListInvoiceDetails = invoiceDetailsDAO.GetAllByInvoiceID(invoiceID).Where(item => item.status == false);
+            ViewBag.ListInvoiceDetails = invoiceDetails;
+            ViewBag.ListTable = tableDAO.GetAllTableByInvoiceId(invoiceID);
             return View("Details");
         }
 
-        public ActionResult PayInvoice(string invoiceID, string tableID)
+        public ActionResult PayInvoice(string invoiceID)
         {
-            tableDAO.ChangeStatus(tableID);
+            List<Table> tables = tableDAO.GetAllTableByInvoiceId(invoiceID);
+            foreach (var table in tables)
+            {
+                tableDAO.ChangeStatus(table.id);
+            }
             invoiceDAO.SetOffStatus(invoiceID);
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult AddInvoice(string tableId, string customerName, string customerPhone)
+        {
+            Invoice invoice = new Invoice()
+            {
+                id = Common.CreateKey.Invoice(),
+                customerName = customerName,
+                customerPhone = customerPhone,
+                status = true
+            };
+            invoiceDAO.Add(invoice);
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public void AddTableForInvoice(string invoiceId, List<int> listTable)
+        {
+            if (listTable == null)
+                return;
+            tableDAO.AddTableForInvoice(invoiceId, listTable);
         }
     }
 }

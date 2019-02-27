@@ -16,6 +16,29 @@ namespace Models.DAO
             return dbContext.Tables.AsQueryable();
         }
 
+        public List<Table> GetAllTableByInvoiceId(string invoiceId)
+        {
+            return dbContext.Invoices.Where(invoice => invoice.id == invoiceId).First().Tables.ToList();
+        }
+
+        public void AddTableForInvoice(string invoiceId, List<int> listTableId)
+        {
+            var table = dbContext.Invoices.First(invoice => invoice.id == invoiceId).Tables;
+
+            listTableId.ForEach(tableId =>
+            {
+                var item = new Table()
+                {
+                    id = tableId.ToString()
+                };
+                dbContext.Tables.Attach(item);
+                table.Add(item);
+                dbContext.Tables.First(t => t.id == tableId.ToString()).status = true;
+            });
+
+            dbContext.SaveChanges();
+        }
+
         public void ChangeStatus(string tableID)
         {
             var table = dbContext.Tables.First(item => item.id == tableID);

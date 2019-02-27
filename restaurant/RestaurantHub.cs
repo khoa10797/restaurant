@@ -17,6 +17,7 @@ namespace restaurant
             InvoiceDetail invoiceDetail = new InvoiceDetail()
             {
                 id = Common.CreateKey.InvoiceDetails(tableID),
+                tableID = tableID,
                 invoiceID = invoiceID,
                 productID = productID,
                 quantity = quantity,
@@ -38,7 +39,7 @@ namespace restaurant
         {
             var listInvoiceWatting = invoiceDetailsDAO.GetAllInvoiceDetailsWaiting().Select(item => new
             {
-                item.Invoice.tableID,
+                item.tableID,
                 item.Product.productName,
                 item.quantity,
                 item.id

@@ -17,6 +17,7 @@ tr td:first-child {
     margin-top: 25px;
     margin-bottom: 25px;
 }
+
 /*Menu page*/
 #container-header-menu {
     margin-top: 20px;
@@ -77,23 +78,19 @@ tr td:first-child {
     margin: 10px;
 }
 
-.content-top {
-    margin-top: 10px;
-}
-
-.content-bottom {
-    margin-bottom: 10px;
-}
-
-#container-table {
+.container-table {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-    #container-table a {
+    .container-table a {
         text-decoration: none !important;
         color: none !important;
+    }
+
+    .container-table :hover {
+        cursor: pointer;
     }
 
 .table-have-people {
@@ -111,11 +108,14 @@ tr td:first-child {
     background: none;
 }
 
-.table-empty span {
-    font-weight: 600;
-    color: #428bca;
+.table-empty {
+    justify-content: center;
 }
 
+    .table-empty span {
+        font-weight: 600;
+        color: #428bca;
+    }
 /*Order*/
 #container-order {
     margin-top: 20px;
@@ -195,12 +195,9 @@ tr td:first-child {
     padding-right: 10px;
 }
 
-    .invoice-group input {
+    .invoice-group span {
         width: 60%;
-        border-top: none;
-        border-left: none;
-        border-right: none;
-        border-width: 1px;
+        margin-left: -9px;
     }
 
     .invoice-group label {
@@ -227,4 +224,28 @@ tr td:first-child {
 #table-pay-details {
     margin-bottom: 50px;
     margin-top: 50px;
+}
+
+#nav-add-invoice {
+    margin-top: 50px;
+}
+
+#add-invoice span {
+    color: red;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+#add-invoice a {
+    color: #08d208;
+    cursor: pointer;
+}
+
+.selected-table {
+    border: 2px solid yellow;
+}
+
+#modalBodyPay {
+    overflow-y: scroll;
+    height: 500px;
 }
