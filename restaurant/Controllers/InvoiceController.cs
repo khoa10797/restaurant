@@ -1,17 +1,15 @@
 ﻿using Models.DAO;
+using Models.EF;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Data.Entity;
-using Models.EF;
-using PagedList;
-using System.IO;
 
 namespace restaurant.Controllers
 {
-    public class PayController : Controller
+    public class InvoiceController : Controller
     {
         private InvoiceDAO invoiceDAO = new InvoiceDAO();
         private InvoiceDetailsDAO invoiceDetailsDAO = new InvoiceDetailsDAO();
@@ -29,7 +27,7 @@ namespace restaurant.Controllers
             var tables = tableDAO.GetAllTable();
             int pageSize = 10;
             int pageNumber = (page ?? 1);
-            return PartialView("_ListTable",tables.OrderBy(table => table.id).ToPagedList(pageNumber, pageSize));
+            return PartialView("_ListTable", tables.OrderBy(table => table.id).ToPagedList(pageNumber, pageSize));
         }
 
         public ActionResult PayDetails(string invoiceID)

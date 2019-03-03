@@ -107,12 +107,6 @@
         });
     }
 
-    //Add class selected-table for table selected
-
-    $('#modalAddTable .table-empty').click(function () {
-        $(this).addClass("selected-table");
-    });
-
     //Remove class selected-table for table
 
     $('#btnCloseModalPay').click(function () {
@@ -136,7 +130,7 @@
 
         if (listTable.length != 0) {
             $.ajax({
-                url: "/Pay/AddInvoice/",
+                url: "/Invoice/AddInvoice/",
                 type: "POST",
                 data: JSON.stringify({
                     "customerName": customerName,
@@ -148,7 +142,7 @@
                     var invoiceId = result.id;
 
                     $.ajax({
-                        url: "/Pay/AddTableForInvoice/",
+                        url: "/Invoice/AddTableForInvoice/",
                         type: "POST",
                         data: JSON.stringify({
                             "invoiceId": invoiceId,
@@ -160,7 +154,7 @@
 
                         }
                     }).always(function () {
-                        window.location.replace('/Pay/Index');
+                        window.location.replace('/Invoice/Index');
                     });
                 },
                 error: function (err) {

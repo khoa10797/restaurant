@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B69344CD-5151-4236-A933-AAE5415B1782}</ProjectGuid>
+    <ProjectGuid>{7A10FED0-EE7A-450D-9BA2-F690FDE1009F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Models</RootNamespace>
@@ -61,14 +61,13 @@
     <Compile Include="EF\ProductCategory.cs" />
     <Compile Include="EF\RestaurantDbContext.cs" />
     <Compile Include="EF\Role.cs" />
+    <Compile Include="EF\sysdiagram.cs" />
     <Compile Include="EF\Table.cs" />
     <Compile Include="EF\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
