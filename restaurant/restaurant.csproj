@@ -204,10 +204,10 @@
     <Content Include="Content\glyphicons.css" />
     <Content Include="Content\login.css" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\simple-sidebar.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\solid.css" />
     <Content Include="Content\solid.min.css" />
-    <Content Include="Content\Style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fa-brands-400.svg" />
     <Content Include="fonts\fa-regular-400.svg" />
@@ -257,6 +257,8 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.signalR-2.4.0.js" />
     <Content Include="Scripts\jquery.signalR-2.4.0.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -281,6 +283,7 @@
     <Content Include="Views\Kitchen\Index.cshtml" />
     <Content Include="Views\Pay\Index.cshtml" />
     <Content Include="Views\Pay\Details.cshtml" />
+    <Content Include="Views\Shared\_ListTable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

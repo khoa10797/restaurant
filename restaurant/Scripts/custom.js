@@ -109,7 +109,7 @@
 
     //Add class selected-table for table selected
 
-    $('.table-empty').click(function () {
+    $('#modalAddTable .table-empty').click(function () {
         $(this).addClass("selected-table");
     });
 
@@ -121,35 +121,54 @@
         });
     });
 
-    //Add values for input-tableId
 
-    $('.btn-open-modal').click(function () {
-        var input = $(this).data('values');
-        $('#input-tableId').val(input);
-    });
+    //Add invoice
 
+    $('#btn-add-invoice').click(function () {
 
-    //
-
-    $('#btn-select-table').click(function () {
+        var customerName = $('#customerName').val();
+        var customerPhone = $('#customerPhone').val();
         var listTable = [];
         $('#modalAddTable').find('.selected-table').each(function () {
             var tableId = $(this).find('span').data('values');
             listTable.push(tableId);
         });
-        var invoiceId = $('#input-tableId').val();
 
-        $.ajax({
-            url: "/Pay/AddTableForInvoice/",
-            type: "POST",
-            data: JSON.stringify({ "invoiceId": invoiceId, "listTable": listTable }),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function () {
+        if (listTable.length != 0) {
+            $.ajax({
+                url: "/Pay/AddInvoice/",
+                type: "POST",
+                data: JSON.stringify({
+                    "customerName": customerName,
+                    "customerPhone": customerPhone
+                }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    var invoiceId = result.id;
 
-            }
-        }).always(function () {
-            window.location.replace('/Pay/Index');
-        });
+                    $.ajax({
+                        url: "/Pay/AddTableForInvoice/",
+                        type: "POST",
+                        data: JSON.stringify({
+                            "invoiceId": invoiceId,
+                            "listTable": listTable
+                        }),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function () {
+
+                        }
+                    }).always(function () {
+                        window.location.replace('/Pay/Index');
+                    });
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        } else {
+            alert('Bạn chưa chọn bàn!');
+        }
     });
 });

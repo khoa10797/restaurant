@@ -1,39 +1,33 @@
 ﻿
 @{
     ViewBag.Title = "Nhà Bếp";
+    ViewBag.SubTitle = "Nhà bếp";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container">
+<div id="container-kitchen">
 
-    <div id="container-kitchen">
-
-        <div class="title">
-            <h1>Món ăn đang chờ</h1>
-        </div>
-
-        <table id="table-kitchen" class="table">
-            <thead>
+    <table id="table-kitchen" class="table">
+        <thead>
+            <tr>
+                <th>Số bàn</th>
+                <th>Tên món</th>
+                <th>Số lượng</th>
+                <th> </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ViewBag.ListOrder)
+            {
                 <tr>
-                    <th>Số bàn</th>
-                    <th>Tên món</th>
-                    <th>Số lượng</th>
+                    <td>@item.tableID</td>
+                    <td>@item.Product.productName</td>
+                    <td>@item.quantity</td>
+                    <td><a href="@Url.Action("Complete" ,new { invoiceDetailsID = item.id })" class="glyphicon glyphicon-ok"></a></td>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in ViewBag.ListOrder)
-                {
-                    <tr>
-                        <td>@item.tableID</td>
-                        <td>@item.Product.productName</td>
-                        <td>@item.quantity</td>
-                        <td><a href="@Url.Action("Complete" ,new { invoiceDetailsID = item.id })" class="glyphicon glyphicon-ok"></a></td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-
-    </div>
+            }
+        </tbody>
+    </table>
 
 </div>
 

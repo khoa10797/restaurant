@@ -7,10 +7,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@ViewBag.Title</title>
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/Content/Style.css" rel="stylesheet" />
     <link href="~/Content/Site.css" rel="stylesheet" />
     <link href="~/Content/PagedList.css" rel="stylesheet" />
     <link href="~/Content/glyphicons.css" rel="stylesheet" />
+    <link href="~/Content/simple-sidebar.css" rel="stylesheet" />
 
     <link href="~/Content/fontawesome.min.css" rel="stylesheet" />
     <link href="~/Content/brands.min.css" rel="stylesheet" />
@@ -19,6 +19,7 @@
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
 
     <script src="~/Scripts/jquery.signalR-2.4.0.min.js"></script>
     <script src="~/signalr/hubs"></script>
@@ -26,61 +27,61 @@
 
 <body>
 
-    <header class="container-fluid header">
+    <div class="d-flex" id="wrapper">
 
-        <div class="banner">
-            <div class="top-banner">
-                <div id="init-top-banner" class="container">
-                    <div class="init-top-banner">
-                        <span></span>
-                    </div>
-                    <div class="init-top-banner">
-                        <a class="nav-link" href="#">Đăng nhập</a>
-                    </div>
-                </div>
+        <!-- Sidebar -->
+        <div class="bg-light border-right" id="sidebar-wrapper">
+            <div class="sidebar-heading"><span>Quản lý</span></div>
+            <div class="list-group list-group-flush">
+                <a href="@Url.Action("Index", "Kitchen")" class="list-group-item list-group-item-action bg-light"><img src="~/images/icon/kitchen.png">Nhà bếp</a>
+                <a href="@Url.Action("Index", "Order")" class="list-group-item list-group-item-action bg-light"><img src="~/images/icon/order.png">Gọi món</a>
+                <a href="@Url.Action("Index", "Pay")" class="list-group-item list-group-item-action bg-light"><img src="~/images/icon/pay.png">Hóa đơn</a>
             </div>
-            <hr>
         </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
 
-        <div class="container">
-            <nav class="navbar navbar-expand-lg navbar-light">
-                <a class="navbar-brand" href="#"><img src="~/images/icon/android-9-pie-logo.png" alt=""></a>
-                <button id="toggler-custom" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+            <nav id="nav-bar" class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+
+                <div class="navbar-brand">
+                    <i class="glyphicon glyphicon-transfer" role="button" id="menu-toggle"></i>
+                    <h6 class="sub-title">@ViewBag.SubTitle</h6>
+                </div>
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="border: none">
+                    <span class="glyphicon glyphicon-tasks"></span>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto nav-center">
-                        <li class="nav-item"></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
+                    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" href="@Url.Action("Index", "Kitchen")"><img src="~/images/icon/kitchen.png">Nhà bếp</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="@Url.Action("Index", "Order")"><img src="~/images/icon/order.png">Gọi món</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="@Url.Action("Index","Pay")"><img src="~/images/icon/pay.png">Hóa đơn</a>
+                            <a class="nav-link" href="">Đăng nhập</a>
                         </li>
                     </ul>
                 </div>
             </nav>
+
+            <div id="body-layout" class="container-fluid">
+                @RenderBody()
+            </div>
         </div>
+        <!-- /#page-content-wrapper -->
 
-    </header>
-
-    <div style="padding-top: 50px; padding-bottom: 50px;">
-        @RenderBody()
     </div>
-
-    <hr />
-
-    <footer class="footer"></footer>
 
     <script src="~/Scripts/custom.js"></script>
     @RenderSection("scripts", required: false)
+
+    <!-- Menu Toggle Script -->
+    <script>
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+    </script>
+
 </body>
 
 </html>

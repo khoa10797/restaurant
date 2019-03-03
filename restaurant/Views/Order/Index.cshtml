@@ -1,123 +1,120 @@
 ﻿
 @{
     ViewBag.Title = "Gọi món";
+    ViewBag.SubTitle = "Gọi món";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container">
-    <div id="container-order">
+<div id="container-order">
 
+    <div id="topOrder">
         <div id="selectTableOrder">
             <span>Chọn bàn:</span>
             @Html.DropDownList("selectedTable", (IEnumerable<SelectListItem>)ViewBag.ListTable)
         </div>
 
-        <nav class="tab-controls">
-            <div class="nav nav-tabs" role="tablist">
-                <a class="nav-item nav-link active" href="#waitting" id="waitting-tab" data-toggle="tab" role="tab"
-                   aria-controls="waitting" aria-selected="true">Đang chờ</a>
-                <a class="nav-item nav-link" href="#order" id="order-tab" data-toggle="tab" role="tab" aria-controls="order"
-                   aria-selected="false">Đã gọi</a>
-            </div>
-        </nav>
+        <div>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#modalOrder">Gọi món</button>
 
-        <div class="tab-content">
-            <!-- Tab waitting food -->
-            <div class="tab-pane fade show active" id="waitting" role="tabpanel" aria-labelledby="waitting-tab">
+            <!-- The Modal -->
+            <div class="modal" id="modalOrder">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
 
-                <div id="waitting-food" class="title">
-                    <h2>Món ăn đang chờ</h2>
-                    <a class="fas fa-plus-circle fa-2x" role="button" data-toggle="modal" data-target="#modalOrder"></a>
-                </div>
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">Chọn món ăn</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
 
-                <!-- The Modal -->
-                <div class="modal" id="modalOrder">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
+                        <!-- Modal body -->
+                        <div class="modal-body">
 
-                            <!-- Modal Header -->
-                            <div class="modal-header">
-                                <h4 class="modal-title">Chọn món ăn</h4>
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <div class="form-group">
+                                <label for="productID">Chọn món:</label>
+                                @Html.DropDownList("productID", (IEnumerable<SelectListItem>)ViewBag.ListProduct, new { @class = "form-control" })
                             </div>
-
-                            <!-- Modal body -->
-                            <div class="modal-body">
-
-                                <div class="form-group">
-                                    <label for="productID">Chọn món:</label>
-                                    @Html.DropDownList("productID", (IEnumerable<SelectListItem>)ViewBag.ListProduct, new { @class = "form-control" })
-                                </div>
-                                <div class="form-group">
-                                    <label for="quantityProduct">Số lượng:</label>
-                                    <input id="quantity-order" type="text" name="quantity" class="form-control" required />
-                                </div>
-                                <input type="hidden" id="invoiceID" name="invoiceID" value=@ViewBag.InvoiceID />
-                                <input type="hidden" id="tableID" name="tableID" value="@ViewBag.TableID" />
-                                <div class="form-group">
-                                    <button type="submit" id="btn-submit-order" class="btn btn-primary" style="width: 100%">Chọn</button>
-                                </div>
-
+                            <div class="form-group">
+                                <label for="quantityProduct">Số lượng:</label>
+                                <input id="quantity-order" type="text" name="quantity" class="form-control" required />
+                            </div>
+                            <input type="hidden" id="invoiceID" name="invoiceID" value=@ViewBag.InvoiceID />
+                            <input type="hidden" id="tableID" name="tableID" value="@ViewBag.TableID" />
+                            <div class="form-group">
+                                <button type="submit" id="btn-submit-order" class="btn btn-primary" style="width: 100%">Chọn</button>
                             </div>
 
                         </div>
+
                     </div>
                 </div>
-
-                <!-- Table watting food -->
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Tên món</th>
-                            <th>Số lượng</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in ViewBag.ListOrder)
-                        {
-                            <tr>
-                                <td>@item.Product.productName</td>
-                                <td>@item.quantity</td>
-                                <td>
-                                    <a class="remove-order fa fa-trash-alt" data-id="@item.id" data-values="@ViewBag.TableID" style="font-size: 20px; color: red;"></a>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-
-            </div>
-
-            <!-- Tab order food -->
-            <div class="tab-pane fade" id="order" role="tabpanel" aria-labelledby="order-tab">
-                <div class="title">
-                    <h2>Món ăn đã gọi</h2>
-                </div>
-
-                <table id="tableOrderFood" class="table table-hover .table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Tên món</th>
-                            <th>Đơn giá</th>
-                            <th>Số lượng</th>
-                            <th>Thành tiền</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in ViewBag.ListInvoiceDetail)
-                        {
-                            <tr>
-                                <td>@item.Product.productName</td>
-                                <td class="price-product-order" data-values="@item.Product.price"><span class="span-price-product-order"></span></td>
-                                <td>@item.quantity</td>
-                                <td class="total-price-order" data-values="@(item.quantity * item.Product.price)"><span class="span-total-price-order"></span></td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
             </div>
         </div>
     </div>
 
+    <nav class="tab-controls">
+        <div class="nav nav-tabs" role="tablist">
+            <a class="nav-item nav-link active" href="#waitting" id="waitting-tab" data-toggle="tab" role="tab"
+               aria-controls="waitting" aria-selected="true">Đang chờ</a>
+            <a class="nav-item nav-link" href="#order" id="order-tab" data-toggle="tab" role="tab" aria-controls="order"
+               aria-selected="false">Đã gọi</a>
+        </div>
+    </nav>
+
+    <div class="tab-content">
+        <!-- Tab waitting food -->
+        <div class="tab-pane fade show active" id="waitting" role="tabpanel" aria-labelledby="waitting-tab">
+
+            <!-- Table watting food -->
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Tên món</th>
+                        <th>Số lượng</th>
+                        <th><i class="fas fa-edit"></i></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewBag.ListOrder)
+                    {
+                        <tr>
+                            <td>@item.Product.productName</td>
+                            <td>@item.quantity</td>
+                            <td>
+                                <a class="remove-order fa fa-trash-alt" data-id="@item.id" data-values="@ViewBag.TableID" style="font-size: 20px; color: red;"></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+
+        <!-- Tab order food -->
+        <div class="tab-pane fade" id="order" role="tabpanel" aria-labelledby="order-tab">
+
+            <table id="tableOrderFood" class="table table-hover .table-bordered">
+                <thead>
+                    <tr>
+                        <th>Tên món</th>
+                        <th>Đơn giá</th>
+                        <th>Số lượng</th>
+                        <th>Thành tiền</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewBag.ListInvoiceDetail)
+                    {
+                        <tr>
+                            <td>@item.Product.productName</td>
+                            <td class="price-product-order" data-values="@item.Product.price"><span class="span-price-product-order"></span></td>
+                            <td>@item.quantity</td>
+                            <td class="total-price-order" data-values="@(item.quantity * item.Product.price)"><span class="span-total-price-order"></span></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 

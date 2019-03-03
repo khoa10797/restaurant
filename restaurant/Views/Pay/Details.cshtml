@@ -1,75 +1,73 @@
 ﻿
 @{
     ViewBag.Title = "Hóa đơn";
+    ViewBag.SubTitle = "Chi tiết hóa đơn";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container">
 
-    <nav class="tab-controls">
-        <div class="nav nav-tabs" role="tablist">
-            <a class="nav-item nav-link active" href="#contain-infomation" id="contain-infomation-tab" data-toggle="tab" role="tab"
-               aria-controls="contain-infomation" aria-selected="true">Thông tin khách</a>
-            <a class="nav-item nav-link" href="#table-pay-details" id="table-pay-details-tab" data-toggle="tab" role="tab" aria-controls="table-pay-details"
-               aria-selected="false">Chi tiết hóa đơn</a>
-        </div>
-    </nav>
+<nav class="tab-controls">
+    <div class="nav nav-tabs" role="tablist">
+        <a class="nav-item nav-link active" href="#contain-infomation" id="contain-infomation-tab" data-toggle="tab" role="tab"
+           aria-controls="contain-infomation" aria-selected="true">Thông tin</a>
+        <a class="nav-item nav-link" href="#table-pay-details" id="table-pay-details-tab" data-toggle="tab" role="tab" aria-controls="table-pay-details"
+           aria-selected="false">Chi tiết hóa đơn</a>
+    </div>
+</nav>
 
-    <div class="tab-content">
+<div class="tab-content">
 
-        <!-- Tab information customer -->
-        <div id="contain-infomation" class="tab-pane fade show active" role="tabpanel" aria-labelledby="invoice-infomation-tab">
-            <div id="invoice-infomation">
-                <div class="invoice-group">
-                    <label>Mã hóa đơn:</label>
-                    <span>@ViewBag.Invoice.id</span>
-                </div>
-                <div class="invoice-group">
-                    <label>Tên khách:</label>
-                    <span>@ViewBag.Invoice.customerName</span>
-                </div>
-                <div class="invoice-group">
-                    <label>Số điện thoại:</label>
-                    <span>@ViewBag.Invoice.customerPhone</span>
-                </div>
-                <div class="invoice-group">
-                    <label>Tổng tiền:</label>
-                    <div>
-                        <span id="invoice-price"></span><span> VNĐ</span>
-                    </div>
-                </div>
-                <a href="@Url.Action("PayInvoice", new { invoiceID = ViewBag.Invoice.id})" class="btn btn-primary">Xong</a>
+    <!-- Tab information customer -->
+    <div id="contain-infomation" class="tab-pane fade show active" role="tabpanel" aria-labelledby="invoice-infomation-tab">
+        <div id="invoice-infomation">
+            <div class="invoice-group">
+                <label>Mã hóa đơn:</label>
+                <span>@ViewBag.Invoice.id</span>
             </div>
+            <div class="invoice-group">
+                <label>Tên khách:</label>
+                <span>@ViewBag.Invoice.customerName</span>
+            </div>
+            <div class="invoice-group">
+                <label>Số điện thoại:</label>
+                <span>@ViewBag.Invoice.customerPhone</span>
+            </div>
+            <div class="invoice-group">
+                <label>Tổng tiền:</label>
+                <div>
+                    <span id="invoice-price"></span><span> VNĐ</span>
+                </div>
+            </div>
+            <a href="@Url.Action("PayInvoice", new { invoiceID = ViewBag.Invoice.id})" class="btn btn-primary">Xong</a>
         </div>
+    </div>
 
-        <!-- Tab invoice details -->
-        <div id="table-pay-details" class="tab-pane fade show" role="tabpanel" aria-labelledby="table-pay-details-tab">
-            <table class="table table-responsive-sm">
-                <thead>
+    <!-- Tab invoice details -->
+    <div id="table-pay-details" class="tab-pane fade show" role="tabpanel" aria-labelledby="table-pay-details-tab">
+        <table class="table table-responsive-sm">
+            <thead>
+                <tr>
+                    <th>Tên món</th>
+                    <th>Số bàn</th>
+                    <th>Số lượng</th>
+                    <th>Đơn giá</th>
+                    <th>Thành tiền</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.ListInvoiceDetails)
+                {
                     <tr>
-                        <th>Tên món</th>
-                        <th>Số bàn</th>
-                        <th>Số lượng</th>
-                        <th>Đơn giá</th>
-                        <th>Thành tiền</th>
+                        <td>@item.Product.productName</td>
+                        <td>@item.Table.id</td>
+                        <td>@item.quantity</td>
+                        <td data-price="@item.Product.price"><span class="price-product"></span></td>
+                        <td data-values="@(item.quantity * item.Product.price)"><span class="total-price-product"></span></td>
                     </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in ViewBag.ListInvoiceDetails)
-                    {
-                        <tr>
-                            <td>@item.Product.productName</td>
-                            <td>@item.Table.id</td>
-                            <td>@item.quantity</td>
-                            <td data-price="@item.Product.price"><span class="price-product"></span></td>
-                            <td data-values="@(item.quantity * item.Product.price)"><span class="total-price-product"></span></td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-            <h5 id="totalPricePay" style="color: red;"></h5>
-        </div>
-
+                }
+            </tbody>
+        </table>
+        <h5 id="totalPricePay" style="color: red;"></h5>
     </div>
 
 </div>

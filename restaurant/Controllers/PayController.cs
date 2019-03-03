@@ -21,10 +21,15 @@ namespace restaurant.Controllers
         public ActionResult Index(int? page)
         {
             ViewBag.ListInvoice = invoiceDAO.GetAllUnpayInvoice();
+            return View();
+        }
+
+        public PartialViewResult GetPaging(int? page)
+        {
             var tables = tableDAO.GetAllTable();
-            int pageSize = 20;
+            int pageSize = 10;
             int pageNumber = (page ?? 1);
-            return View(tables.OrderBy(table => table.id).ToPagedList(pageNumber, pageSize));
+            return PartialView("_ListTable",tables.OrderBy(table => table.id).ToPagedList(pageNumber, pageSize));
         }
 
         public ActionResult PayDetails(string invoiceID)
@@ -49,16 +54,16 @@ namespace restaurant.Controllers
         public ActionResult PayInvoice(string invoiceID)
         {
             List<Table> tables = tableDAO.GetAllTableByInvoiceId(invoiceID);
-            foreach (var table in tables)
+            tables.ForEach(table =>
             {
                 tableDAO.ChangeStatus(table.id);
-            }
+            });
             invoiceDAO.SetOffStatus(invoiceID);
             return RedirectToAction("Index");
         }
 
         [HttpPost]
-        public ActionResult AddInvoice(string tableId, string customerName, string customerPhone)
+        public ActionResult AddInvoice(string customerName, string customerPhone)
         {
             Invoice invoice = new Invoice()
             {
@@ -68,14 +73,12 @@ namespace restaurant.Controllers
                 status = true
             };
             invoiceDAO.Add(invoice);
-            return RedirectToAction("Index");
+            return Json(invoice, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public void AddTableForInvoice(string invoiceId, List<int> listTable)
         {
-            if (listTable == null)
-                return;
             tableDAO.AddTableForInvoice(invoiceId, listTable);
         }
     }
