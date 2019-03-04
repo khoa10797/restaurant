@@ -1,0 +1,78 @@
+﻿
+@{
+    ViewBag.Title = "Menu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Menu</h2>
+
+
+<div class="container">
+
+    <div class="btn-group">
+        <button type="button" class="btn btn-primary">Apple</button>
+        <button type="button" class="btn btn-primary">Samsung</button>
+        <button type="button" class="btn btn-primary">Sony</button>
+    </div>
+
+    <div class="row">
+
+        @foreach (var product in ViewBag.Desserts)
+        {
+            <div class="col-6 col-md-4 col-lg-4 col-xl-3 container-product ">
+                <div class="item">
+                    <div class="image-product">
+                        <img src="@product.picture" />
+                    </div>
+                    <div class="description">
+                        <div class="name-product">
+                            <h6>@product.productName</h6>
+                        </div>
+                        <div class="bottom-product">
+                            <span>@(product.price * 1000) VND</span>
+                            <div class="select-product">
+                                <button class="btn btn-info btn-sm btn-select-product">
+                                    <span class="glyphicon glyphicon-check"></span> Chọn
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+
+<script>
+
+    //$('.select-product').click(function () {
+
+    //    $('.select-number').html(`<button class="btn btn-info btn-sm btn-select-product">
+    //                                <span class="glyphicon glyphicon-check"></span> Chọn
+    //                              </button>`);
+
+    //    $('.select-number').addClass('select-product').removeClass('select-number');
+
+    //    $(this).html(`<i id="decrease-product" class="fas fa-chevron-circle-left"></i>
+    //                  <span class="quantity-product">1</span>
+    //                  <i id="increase-product" class="fas fa-chevron-circle-right"></i>`);
+
+    //    $(this).addClass('select-number').removeClass('select-product');
+    //});
+
+
+    //$('#decrease-product').click(function () {
+    //    var s = $('.quantity-product').val();
+    //    if (s > 0) {
+    //        $('.quantity-product').html(s - 1);
+    //    }
+    //});
+
+    //$('#increase-product').click(function () {
+    //    console.log('ok');
+    //    var s = $('.quantity-product').val();
+    //    $('.quantity-product').html(s + 1);
+    //});
+
+</script>

@@ -33,16 +33,17 @@
         <div class="bg-light border-right" id="sidebar-wrapper">
             <div class="sidebar-heading"><span>Quản lý</span></div>
             <div class="list-group list-group-flush">
-                <a href="@Url.Action("Index", "Kitchen")" class="list-group-item list-group-item-action bg-light"><img src="~/images/icon/kitchen.png">Nhà bếp</a>
-                <a href="@Url.Action("Index", "Order")" class="list-group-item list-group-item-action bg-light"><img src="~/images/icon/order.png">Gọi món</a>
-                <a href="@Url.Action("Index", "Invoice")" class="list-group-item list-group-item-action bg-light"><img src="~/images/icon/pay.png">Hóa đơn</a>
+                <a href="@Url.Action("Index", "Menu")" class="list-group-item list-group-item-action bg-light"><i class="fas fa-book"></i> Thực đơn</a>
+                <a href="@Url.Action("Index", "Kitchen")" class="list-group-item list-group-item-action bg-light"><i class="fas fa-utensils"></i> Nhà bếp</a>
+                <a href="@Url.Action("Index", "Order")" class="list-group-item list-group-item-action bg-light"><i class="fas fa-concierge-bell"></i> Gọi món</a>
+                <a href="@Url.Action("Index", "Invoice")" class="list-group-item list-group-item-action bg-light"><i class="fas fa-file-invoice-dollar"></i> Hóa đơn</a>
             </div>
         </div>
         <!-- /#sidebar-wrapper -->
         <!-- Page Content -->
         <div id="page-content-wrapper">
 
-            <nav id="nav-bar" class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+            <nav id="nav-bar" class="navbar navbar-expand-lg navbar-light border-bottom">
 
                 <div class="navbar-brand">
                     <i class="glyphicon glyphicon-transfer" role="button" id="menu-toggle"></i>

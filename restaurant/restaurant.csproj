@@ -181,6 +181,7 @@
     <Compile Include="Common\CreateKey.cs" />
     <Compile Include="Controllers\InvoiceController.cs" />
     <Compile Include="Controllers\KitchenController.cs" />
+    <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -217,15 +218,7 @@
     <Content Include="images\icon\order.png" />
     <Content Include="images\icon\pay.png" />
     <Content Include="images\icon\table.png" />
-    <Content Include="images\item\g1.jpg" />
-    <Content Include="images\item\g2.jpg" />
-    <Content Include="images\item\g3.jpg" />
-    <Content Include="images\item\g4.jpg" />
-    <Content Include="images\item\g5.jpg" />
-    <Content Include="images\item\g6.jpg" />
-    <Content Include="images\item\g7.jpg" />
-    <Content Include="images\item\g8.jpg" />
-    <Content Include="images\item\g9.jpg" />
+    <Content Include="images\item\anh_mau.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\custom.js" />
@@ -276,6 +269,8 @@
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Invoice\Details.cshtml" />
     <Content Include="Views\Invoice\Index.cshtml" />
+    <Content Include="Views\Order\Menu.cshtml" />
+    <Content Include="Views\Menu\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

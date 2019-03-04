@@ -13,43 +13,45 @@
             @Html.DropDownList("selectedTable", (IEnumerable<SelectListItem>)ViewBag.ListTable)
         </div>
 
-        <div>
-            <button class="btn btn-primary" data-toggle="modal" data-target="#modalOrder">Gọi món</button>
+        <a href="@Url.Action("GetMenu","Order", new { tableID = ViewBag.TableID })" role="button" class="btn btn-primary">Gọi món</a>
 
-            <!-- The Modal -->
-            <div class="modal" id="modalOrder">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
+        @*<div>
+                <button class="btn btn-primary" data-toggle="modal" data-target="#modalOrder">Gọi món</button>
 
-                        <!-- Modal Header -->
-                        <div class="modal-header">
-                            <h4 class="modal-title">Chọn món ăn</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <!-- The Modal -->
+                <div class="modal" id="modalOrder">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title">Chọn món ăn</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+
+                            <!-- Modal body -->
+                            <div class="modal-body">
+
+                                <div class="form-group">
+                                    <label for="productID">Chọn món:</label>
+                                    @Html.DropDownList("productID", (IEnumerable<SelectListItem>)ViewBag.ListProduct, new { @class = "form-control" })
+                                </div>
+                                <div class="form-group">
+                                    <label for="quantityProduct">Số lượng:</label>
+                                    <input id="quantity-order" type="text" name="quantity" class="form-control" required />
+                                </div>
+                                <input type="hidden" id="invoiceID" name="invoiceID" value=@ViewBag.InvoiceID />
+                                <input type="hidden" id="tableID" name="tableID" value="@ViewBag.TableID" />
+                                <div class="form-group">
+                                    <button type="submit" id="btn-submit-order" class="btn btn-primary" style="width: 100%">Chọn</button>
+                                </div>
+
+                            </div>
+
                         </div>
-
-                        <!-- Modal body -->
-                        <div class="modal-body">
-
-                            <div class="form-group">
-                                <label for="productID">Chọn món:</label>
-                                @Html.DropDownList("productID", (IEnumerable<SelectListItem>)ViewBag.ListProduct, new { @class = "form-control" })
-                            </div>
-                            <div class="form-group">
-                                <label for="quantityProduct">Số lượng:</label>
-                                <input id="quantity-order" type="text" name="quantity" class="form-control" required />
-                            </div>
-                            <input type="hidden" id="invoiceID" name="invoiceID" value=@ViewBag.InvoiceID />
-                            <input type="hidden" id="tableID" name="tableID" value="@ViewBag.TableID" />
-                            <div class="form-group">
-                                <button type="submit" id="btn-submit-order" class="btn btn-primary" style="width: 100%">Chọn</button>
-                            </div>
-
-                        </div>
-
                     </div>
                 </div>
-            </div>
-        </div>
+            </div>*@
     </div>
 
     <nav class="tab-controls">
