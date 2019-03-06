@@ -54,8 +54,6 @@
                 listCart.push(new Cart(productID, productName, quantity));
             });
 
-            console.log(listCart);
-
             hub.server.addNewOrder(tableID, listCart).done(function () {
                 window.location.replace('/Cart/RemoveSession');
             });
