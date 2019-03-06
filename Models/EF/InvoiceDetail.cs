@@ -8,8 +8,7 @@ namespace Models.EF
 
     public partial class InvoiceDetail
     {
-        [StringLength(50)]
-        public string id { get; set; }
+        public int id { get; set; }
 
         [Required]
         [StringLength(20)]

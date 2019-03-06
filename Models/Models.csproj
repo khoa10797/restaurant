@@ -61,7 +61,6 @@
     <Compile Include="EF\ProductCategory.cs" />
     <Compile Include="EF\RestaurantDbContext.cs" />
     <Compile Include="EF\Role.cs" />
-    <Compile Include="EF\sysdiagram.cs" />
     <Compile Include="EF\Table.cs" />
     <Compile Include="EF\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

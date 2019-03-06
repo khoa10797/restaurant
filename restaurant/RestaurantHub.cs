@@ -21,7 +21,6 @@ namespace restaurant
             {
                 InvoiceDetail item = new InvoiceDetail()
                 {
-                    id = Common.CreateKey.InvoiceDetails(tableID),
                     tableID = tableID,
                     invoiceID = invoiceDAO.GetLastInvoiceByTableId(tableID).id,
                     productID = cart.productID,
@@ -36,7 +35,7 @@ namespace restaurant
             UpdateWaittingFoodForClients();
         }
 
-        public void RemoveOrder(string invoiceDetailsId)
+        public void RemoveOrder(int invoiceDetailsId)
         {
             invoiceDetailsDAO.Remove(invoiceDetailsId);
 

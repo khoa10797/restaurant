@@ -67,5 +67,11 @@ namespace restaurant.Controllers
             item.quantity = quantity;
             return Json("true", JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult RemoveSession()
+        {
+            Session.Remove("cart");
+            return RedirectToAction("Index", "Menu");
+        }
     }
 }

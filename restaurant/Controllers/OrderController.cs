@@ -24,7 +24,7 @@ namespace restaurant.Controllers
             return View("Index");
         }
 
-        public ActionResult DeleteInvoiceDetails(string invoiceDetailsID, string tableID)
+        public ActionResult DeleteInvoiceDetails(int invoiceDetailsID, string tableID)
         {
             invoiceDetailsDAO.Remove(invoiceDetailsID);
             SetViewBag(tableID);

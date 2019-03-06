@@ -57,7 +57,7 @@
             console.log(listCart);
 
             hub.server.addNewOrder(tableID, listCart).done(function () {
-                window.location.href('/Menu/Index');
+                window.location.replace('/Cart/RemoveSession');
             });
         });
 
@@ -228,7 +228,7 @@
         });
     });
 
-    //Event change quantity product of input
+    //Event change quantity product of input page cart
 
     $('.input-quantity-cart').change(function () {
         var productId = $(this).data('id');
@@ -238,7 +238,8 @@
             type: "POST",
             data: { productId: productId, quantity: quantity },
             success: function () {
-                console.log('ok');
+                var rowId = '#' + productId;
+                $(rowId).data('quantity', quantity);
             }
         });
     });

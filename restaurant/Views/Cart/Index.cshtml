@@ -5,33 +5,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<button class="btn btn-primary" role="button" data-toggle="modal" data-target="#modal-select-table">Chọn bàn</button>
-
-<div class="modal" id="modal-select-table">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Chọn bàn</h4>
-                <button id="" type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-
-            <!-- Modal body -->
-            <div class="modal-body">
-
-                <div id="select-table-cart" class="modal-body">
-
-                    @{ Html.RenderAction("GetPaging", "Cart", new { page = 1 }); }
-
-                </div>
-
-            </div>
-
-        </div>
-    </div>
-</div>
-
 <div class="container">
     @if (ViewBag.ListCart == null || ViewBag.ListCart.Count == 0)
     {
@@ -39,6 +12,32 @@
     }
     else
     {
+
+        <div class="modal" id="modal-select-table">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Chọn bàn</h4>
+                        <button id="" type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+
+                        <div id="select-table-cart" class="modal-body">
+
+                            @{ Html.RenderAction("GetPaging", "Cart", new { page = 1 }); }
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
         <table id="table-list-cart" class="table table-responsive-sm">
             <thead>
                 <tr>
@@ -60,12 +59,12 @@
                 }
             </tbody>
         </table>
+
+        <script>
+            $('.custom-navbar').html(`<button class="btn btn-info btn-sm" role="button" data-toggle="modal" data-target="#modal-select-table">
+                                                <span class="glyphicon glyphicon-check"></span> Xong
+                                              </button>`);
+        </script>
     }
 
 </div>
-
-<script>
-    $('.custom-navbar').html(`<a href="@Url.Action("Index","Cart")" class="btn btn-info btn-sm">
-                                    Gọi món
-                              </a>`);
-</script>

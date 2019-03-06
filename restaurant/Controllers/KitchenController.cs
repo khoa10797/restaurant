@@ -19,7 +19,7 @@ namespace restaurant.Controllers
             return View();
         }
 
-        public ActionResult Complete(string invoiceDetailsID)
+        public ActionResult Complete(int invoiceDetailsID)
         {
             invoiceDetailsDAO.SetStatusOff(invoiceDetailsID);
             SetViewBag();

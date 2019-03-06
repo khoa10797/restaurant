@@ -28,19 +28,19 @@ namespace Models.DAO
                 .Include(x => x.Invoice);
         }
 
-        public InvoiceDetail FindById(string id)
+        public InvoiceDetail FindById(int id)
         {
             return dbContext.InvoiceDetails.First(invoice => invoice.id == id);
         }
 
-        public void SetStatusOff(string id)
+        public void SetStatusOff(int id)
         {
             var invoiceDetails = dbContext.InvoiceDetails.First(item => item.id == id);
             invoiceDetails.status = false;
             dbContext.SaveChanges();
         }
 
-        public string Add(InvoiceDetail invoiceDetail)
+        public int Add(InvoiceDetail invoiceDetail)
         {
             dbContext.InvoiceDetails.Add(invoiceDetail);
             dbContext.SaveChanges();
@@ -56,7 +56,7 @@ namespace Models.DAO
             dbContext.SaveChanges();
         }
 
-        public string Remove(string id)
+        public int Remove(int id)
         {
             var invoiceDetails = new InvoiceDetail();
             invoiceDetails.id = id;
