@@ -1,0 +1,71 @@
+﻿@model PagedList.IPagedList<Models.EF.Table>
+@{
+    ViewBag.Title = "Món ăn đã chọn";
+    ViewBag.SubTitle = "Món ăn đã chọn";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<button class="btn btn-primary" role="button" data-toggle="modal" data-target="#modal-select-table">Chọn bàn</button>
+
+<div class="modal" id="modal-select-table">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Chọn bàn</h4>
+                <button id="" type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+
+                <div id="select-table-cart" class="modal-body">
+
+                    @{ Html.RenderAction("GetPaging", "Cart", new { page = 1 }); }
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    @if (ViewBag.ListCart == null || ViewBag.ListCart.Count == 0)
+    {
+        <h1>Bạn chưa chọn món ăn nào!</h1>
+    }
+    else
+    {
+        <table id="table-list-cart" class="table table-responsive-sm">
+            <thead>
+                <tr>
+                    <th>Tên món</th>
+                    <th>Số lượng</th>
+                    <th> </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.ListCart)
+                {
+                    <tr id="@item.productID" class="row-data-cart" data-productid="@item.productID" data-productname="@item.productName" data-quantity="@item.quantity">
+                        <td>@item.productName</td>
+                        <td><input type="number" class="form-control input-quantity-cart" value="@item.quantity" min="1" data-id="@item.productID" /></td>
+                        <td>
+                            <button type="button" class="btn btn-danger" data-role="remove" data-id="@item.productID">Xóa</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+</div>
+
+<script>
+    $('.custom-navbar').html(`<a href="@Url.Action("Index","Cart")" class="btn btn-info btn-sm">
+                                    Gọi món
+                              </a>`);
+</script>

@@ -179,6 +179,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Common\CreateKey.cs" />
+    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\InvoiceController.cs" />
     <Compile Include="Controllers\KitchenController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
@@ -186,6 +187,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Cart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RestaurantHub.cs" />
     <Compile Include="Startup.cs" />
@@ -213,11 +215,6 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="images\icon\android-9-pie-logo.png" />
-    <Content Include="images\icon\kitchen.png" />
-    <Content Include="images\icon\order.png" />
-    <Content Include="images\icon\pay.png" />
-    <Content Include="images\icon\table.png" />
     <Content Include="images\item\anh_mau.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -269,12 +266,13 @@
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Invoice\Details.cshtml" />
     <Content Include="Views\Invoice\Index.cshtml" />
-    <Content Include="Views\Order\Menu.cshtml" />
     <Content Include="Views\Menu\Index.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Shared\_ListTableCart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
+    <Folder Include="images\icon\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

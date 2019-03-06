@@ -1,0 +1,29 @@
+﻿@model PagedList.IPagedList<Models.EF.Table>
+@using PagedList.Mvc
+
+<div class="container">
+    <div class="row">
+        @foreach (var table in Model)
+        {
+            <div class="col-4 col-sm-4 col-lg-3 col-xl-2">
+                <div class="container-table">
+
+                    <div class="content-table table-empty selecte-table-in-cart" data-values="@table.id">
+                        <span>@table.id</span>
+                    </div>
+
+                </div>
+            </div>
+        }
+    </div>
+
+    <!-- Page list -->
+    <div class="container-paged-list">
+        Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+        <br />
+        @Html.PagedListPager(Model, page => Url.Action("GetPaging", new { page }),
+       PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() {
+           HttpMethod = "GET", UpdateTargetId = "select-table-cart"
+       }))
+    </div>
+</div>

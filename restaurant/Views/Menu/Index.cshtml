@@ -9,8 +9,8 @@
 <div class="container">
 
     <div id="top-menu" class="btn-group">
-        <a href="@Url.Action("Index", new { categoryId = "01" })" role="button" class="btn btn-outline-primary">Khai vị</a>
-        <a href="@Url.Action("Index", new { categoryId = "02" })" role="button" class="btn btn-outline-primary">Món chính</a>
+        <a href="@Url.Action("Index", new { categoryId = "01" })" role="button" class="btn btn-outline-primary">Món khai vị</a>
+        <a href="@Url.Action("Index", new { categoryId = "02" })" role="button" class="btn btn-outline-primary"> Món chính </a>
         <a href="@Url.Action("Index", new { categoryId = "03" })" role="button" class="btn btn-outline-primary">Tráng miệng</a>
     </div>
 
@@ -30,7 +30,7 @@
                         <div class="bottom-product">
                             <span>@(product.price * 1000) VND</span>
                             <div class="select-product">
-                                <button class="btn btn-info btn-sm btn-select-product">
+                                <button data-action="select" data-values="@product.id" class="btn btn-info btn-sm btn-select-product">
                                     <span class="glyphicon glyphicon-check"></span> Chọn
                                 </button>
                             </div>
@@ -49,3 +49,8 @@
     </div>
 </div>
 
+<script>
+    $('.custom-navbar').html(`<a href="@Url.Action("Index","Cart")" class="btn btn-info btn-sm">
+                                    Đã chọn <span class="glyphicon glyphicon-play"></span>
+                              </a>`);
+</script>

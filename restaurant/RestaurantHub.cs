@@ -5,25 +5,33 @@ using System.Web;
 using Microsoft.AspNet.SignalR;
 using Models.DAO;
 using Models.EF;
+using restaurant.Models;
 
 namespace restaurant
 {
     public class RestaurantHub : Hub
     {
         private InvoiceDetailsDAO invoiceDetailsDAO = new InvoiceDetailsDAO();
+        private InvoiceDAO invoiceDAO = new InvoiceDAO();
 
-        public void AddNewOrder(string tableID, string invoiceID, string productID, byte quantity)
+        public void AddNewOrder(string tableID, List<Cart> listCart)
         {
-            InvoiceDetail invoiceDetail = new InvoiceDetail()
+            List<InvoiceDetail> invoiceDetails = new List<InvoiceDetail>();
+            listCart.ForEach(cart =>
             {
-                id = Common.CreateKey.InvoiceDetails(tableID),
-                tableID = tableID,
-                invoiceID = invoiceID,
-                productID = productID,
-                quantity = quantity,
-                status = true
-            };
-            invoiceDetailsDAO.Add(invoiceDetail);
+                InvoiceDetail item = new InvoiceDetail()
+                {
+                    id = Common.CreateKey.InvoiceDetails(tableID),
+                    tableID = tableID,
+                    invoiceID = invoiceDAO.GetLastInvoiceByTableId(tableID).id,
+                    productID = cart.productID,
+                    quantity = Convert.ToByte(cart.quantity),
+                    status = true
+                };
+                invoiceDetails.Add(item);
+            });
+
+            invoiceDetailsDAO.Add(invoiceDetails);
 
             UpdateWaittingFoodForClients();
         }

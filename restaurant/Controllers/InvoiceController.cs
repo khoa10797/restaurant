@@ -25,7 +25,7 @@ namespace restaurant.Controllers
         public PartialViewResult GetPaging(int? page)
         {
             var tables = tableDAO.GetAllTable();
-            int pageSize = 10;
+            int pageSize = 30;
             int pageNumber = (page ?? 1);
             return PartialView("_ListTable", tables.OrderBy(table => table.id).ToPagedList(pageNumber, pageSize));
         }

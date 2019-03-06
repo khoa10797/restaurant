@@ -36,13 +36,28 @@
 
         //Add new order
 
-        $('#btn-submit-order').click(function () {
-            let tableId = $('#tableID').val();
-            let invoiceId = $('#invoiceID').val();
-            let productId = $('#productID').val();
-            let quantity = $('#quantity-order').val();
-            hub.server.addNewOrder(tableId, invoiceId, productId, quantity).done(function () {
-                window.location.replace('/Order/Index?tableID=' + tableId);
+        $('.selecte-table-in-cart').click(function () {
+            var tableID = $(this).data('values');
+            var listCart = [];
+
+            function Cart(productID, productName, quantity) {
+                this.productID = productID;
+                this.productName = productName;
+                this.quantity = quantity;
+            }
+
+            $('.row-data-cart').each(function () {
+                console.log(this);
+                var productID = $(this).data('productid');
+                var productName = $(this).data('productname');
+                var quantity = $(this).data('quantity');
+                listCart.push(new Cart(productID, productName, quantity));
+            });
+
+            console.log(listCart);
+
+            hub.server.addNewOrder(tableID, listCart).done(function () {
+                window.location.href('/Menu/Index');
             });
         });
 
@@ -166,5 +181,65 @@
         }
     });
 
+    //Add or remove product to cart
 
+    $('.btn-select-product').click(function () {
+        var productId = $(this).data('values');
+        var _this = this;
+
+        if ($(this).data('action') == 'select') {
+            $.ajax({
+                url: "/Cart/AddCart/",
+                type: "POST",
+                data: { productId: productId },
+                success: function () {
+                    console.log('Đã chọn mặt hàng');
+                    $(_this).addClass('btn-danger').removeClass('btn-info');
+                    $(_this).html(`<span class="glyphicon glyphicon-trash"></span> Xóa`);
+                    $(_this).data('action', 'remove');
+                }
+            });
+        } else {
+            $.ajax({
+                url: "/Cart/RemoveCart/",
+                type: "POST",
+                data: { productId: productId },
+                success: function () {
+                    $(_this).addClass('btn-info').removeClass('btn-danger');
+                    $(_this).html(`<span class="glyphicon glyphicon-check"></span> Chọn`);
+                    $(_this).data('action', 'select');
+                }
+            });
+        }
+    });
+
+    //Remove product in cart
+
+    $('button[data-role="remove"]').click(function () {
+        var productId = $(this).data('id');
+        $.ajax({
+            url: "/Cart/RemoveCart/",
+            type: "POST",
+            data: { productId: productId },
+            success: function () {
+                var rowId = '#' + productId;
+                $(rowId).remove();
+            }
+        });
+    });
+
+    //Event change quantity product of input
+
+    $('.input-quantity-cart').change(function () {
+        var productId = $(this).data('id');
+        var quantity = $(this).val();
+        $.ajax({
+            url: "/Cart/UpdateCart/",
+            type: "POST",
+            data: { productId: productId, quantity: quantity },
+            success: function () {
+                console.log('ok');
+            }
+        });
+    });
 });

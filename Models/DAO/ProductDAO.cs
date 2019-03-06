@@ -21,6 +21,12 @@ namespace Models.DAO
             return dbContext.Products.AsQueryable().Where(product => product.categoryID.Equals(categoryID));
         }
 
+        public string GetNameByID(string id)
+        {
+            string name = dbContext.Products.First(product => product.id == id).productName;
+            return name;
+        }
+
         public Product GetByID(string id)
         {
             return dbContext.Products.SingleOrDefault(product => product.id.Equals(id));

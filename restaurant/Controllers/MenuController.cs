@@ -16,7 +16,7 @@ namespace restaurant.Controllers
         // GET: Menu
         public ActionResult Index(int? page,string categoryId = "01")
         {
-            int pageSize = 5;
+            int pageSize = 20;
             int pageNumber = (page ?? 1);
             var products = productDAO.GetByCategoryID(categoryId).ToList();
 

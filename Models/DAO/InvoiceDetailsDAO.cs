@@ -47,6 +47,15 @@ namespace Models.DAO
             return invoiceDetail.id;
         }
 
+        public void Add(List<InvoiceDetail> invoiceDetails)
+        {
+            invoiceDetails.ForEach(item =>
+            {
+                dbContext.InvoiceDetails.Add(item);
+            });
+            dbContext.SaveChanges();
+        }
+
         public string Remove(string id)
         {
             var invoiceDetails = new InvoiceDetail();
