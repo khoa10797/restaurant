@@ -17,16 +17,13 @@ namespace Models.EF
         [StringLength(20)]
         public string id { get; set; }
 
-        [StringLength(20)]
-        public string firstName { get; set; }
-
-        [StringLength(40)]
-        public string lastName { get; set; }
+        [StringLength(50)]
+        public string name { get; set; }
 
         [StringLength(20)]
         public string cmnd { get; set; }
 
-        [Column(TypeName = "smalldatetime")]
+        [Column(TypeName = "date")]
         public DateTime? birthday { get; set; }
 
         public bool? sex { get; set; }

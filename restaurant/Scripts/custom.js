@@ -241,4 +241,36 @@
             }
         });
     });
+
+    //Format birthday for page user in area admin
+    $('.birthday').each(function () {
+        var s = $(this).data('birthday').split(' ');
+        var day = s[0];
+        $(this).text(day);
+    });
+
+    //Format sex for page user in area admin
+    $('.user-sex').each(function () {
+        var s = $(this).data('sex');
+        var sex;
+        if (s == 'True')
+            sex = 'Nam';
+        else
+            sex = 'Nữ';
+        $(this).text(sex);
+    });
+
+    //Remove user
+    $('.btn-remove-user').click(function () {
+        var userId = $(this).data('id');
+        $.ajax({
+            url: "/User/RemoveUser/",
+            type: "POST",
+            data: { id: userId },
+            success: function () {
+                var rowId = '#' + userId;
+                $(rowId).remove();
+            }
+        });
+    });
 });

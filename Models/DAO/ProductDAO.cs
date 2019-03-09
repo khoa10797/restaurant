@@ -1,6 +1,7 @@
 ﻿using Models.EF;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,20 @@ namespace Models.DAO
     public class ProductDAO
     {
         private RestaurantDbContext dbContext = new RestaurantDbContext();
+
+        public string Add(Product product)
+        {
+            dbContext.Products.Add(product);
+            return product.id;
+        }
+
+        public string Remove(string productId)
+        {
+            Product product = new Product();
+            product.id = productId;
+            dbContext.Entry(product).State = EntityState.Deleted;
+            return productId;
+        }
 
         public IQueryable<Product> GetAllProduct()
         {

@@ -16,7 +16,7 @@ namespace restaurant.Controllers
         private TableDAO tableDAO = new TableDAO();
 
         // GET: Pay
-        public ActionResult Index(int? page)
+        public ActionResult Index()
         {
             ViewBag.ListInvoice = invoiceDAO.GetAllUnpayInvoice();
             return View();
