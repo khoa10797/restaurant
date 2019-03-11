@@ -268,7 +268,21 @@
             type: "POST",
             data: { id: userId },
             success: function () {
-                var rowId = '#' + userId;
+                var rowId = '#u' + userId;
+                $(rowId).remove();
+            }
+        });
+    });
+
+    //Remove product
+    $('.btn-remove-product').click(function () {
+        var productId = $(this).data('id');
+        $.ajax({
+            url: "/Product/RemoveProduct/",
+            type: "POST",
+            data: { id: productId },
+            success: function () {
+                var rowId = '#p' + productId;
                 $(rowId).remove();
             }
         });

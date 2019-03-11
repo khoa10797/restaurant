@@ -30,8 +30,6 @@ namespace Models.EF
 
         public double? price { get; set; }
 
-        public double? promotionPrice { get; set; }
-
         [Column(TypeName = "ntext")]
         public string note { get; set; }
 

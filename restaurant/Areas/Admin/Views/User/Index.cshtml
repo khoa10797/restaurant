@@ -1,7 +1,8 @@
 ﻿@model PagedList.IPagedList<Models.EF.User>
 @using PagedList.Mvc
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Người dùng";
+    ViewBag.SubTitle = "Quản lý người dùng";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
@@ -36,7 +37,7 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr id="@item.id">
+                    <tr id="u@(item.id)">
                         <td>@item.id</td>
                         <td>@item.name</td>
                         <td>@item.cmnd</td>
@@ -55,7 +56,7 @@
         <div class="container-paged-list">
             Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
             <br />
-            @Html.PagedListPager(Model, page => Url.Action("User", new { page, ViewBag.CategoryId }))
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page, ViewBag.CategoryId }))
         </div>
     </div>
 

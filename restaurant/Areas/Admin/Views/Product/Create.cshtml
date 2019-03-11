@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewBag.Title = "Thêm món ăn";
+    ViewBag.SubTitle = "Thêm món ăn";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("AddProduct", "Product", FormMethod.Post, new { enctype = "multipart/form-data", @class = "row" }))
+{
+    <div class="col">
+        <div class="form-group">
+            <label for="product-id">Mã món ăn</label>
+            <input type="text" class="form-control" id="product-id" name="id" required>
+        </div>
+        <div class="form-group">
+            <label for="product-category">Mã loại</label>
+            <input type="text" class="form-control" id="product-category" name="categoryID" required>
+        </div>
+        <div class="form-group">
+            <label for="product-name">Tên món ăn</label>
+            <input type="text" class="form-control" id="product-name" name="productName" required>
+        </div>
+    </div>
+    <div class="col">
+        <div class="form-group">
+            <label for="product-picture">Ảnh</label>
+            <input type="file" class="form-control-file" id="product-picture" name="imageFile" value="Chọn file" required>
+        </div>
+        <div class="form-group">
+            <label for="product-price">Giá bán</label>
+            <input type="number" class="form-control" id="product-price" name="price" required>
+        </div>
+        <div class="form-group">
+            <label for="product-note">Ghi chú</label>
+            <input type="text" class="form-control" id="product-note" name="note">
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Thêm món ăn" style="position: relative;top: 14px;will-change: top, left;" />
+        </div>
+    </div>
+}
+

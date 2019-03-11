@@ -15,6 +15,7 @@ namespace Models.DAO
         public string Add(Product product)
         {
             dbContext.Products.Add(product);
+            dbContext.SaveChanges();
             return product.id;
         }
 
@@ -23,6 +24,7 @@ namespace Models.DAO
             Product product = new Product();
             product.id = productId;
             dbContext.Entry(product).State = EntityState.Deleted;
+            dbContext.SaveChanges();
             return productId;
         }
 

@@ -1,8 +1,50 @@
-﻿
+﻿@model PagedList.IPagedList<Models.EF.Product>
+@using PagedList.Mvc
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Món ăn";
+    ViewBag.SubTitle = "Danh sách món ăn";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Mã</th>
+            <th>Mã loại</th>
+            <th>Tên món ăn</th>
+            <th>Ảnh</th>
+            <th>Giá bán</th>
+            <th>Ghi chú</th>
+            <th>Lượt mua</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr id="p@(item.id)">
+                <td>@item.id</td>
+                <td>@item.categoryID</td>
+                <td>@item.productName</td>
+                <td>@item.picture</td>
+                <td>@item.price</td>
+                <td>@item.note</td>
+                <td>@item.buyCount</td>
+                <td><span class="glyphicon glyphicon-trash btn-remove-product" data-id="@item.id" style="color: red"></span></td>
+            </tr>
+        }
+    </tbody>
+</table>
 
+<div class="container-paged-list">
+    Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+    <br />
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, ViewBag.CategoryId }))
+</div>
+
+<script>
+    $('.custom-navbar').html(`<a href="@Url.Action("Create", "Product")" class="btn btn-info btn-sm">
+                                    <span class="glyphicon glyphicon-plus"></span> Thêm
+                              </a>`);
+</script>
