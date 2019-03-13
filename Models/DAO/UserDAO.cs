@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,12 +37,36 @@ namespace Models.DAO
 
         public User GetByUserName(string userName)
         {
-            return dbContext.Users.SingleOrDefault(user => user.accountName.Equals(userName));
+            return dbContext.Users.Single(user => user.accountName.Equals(userName));
         }
 
         public IQueryable<User> GetAllUsers()
         {
             return dbContext.Users;
+        }
+
+        public bool CheckLogin(string userName, string password)
+        {
+            try
+            {
+                var acc = dbContext.Users.First(x => x.accountName == userName && x.accountPassword == password);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public List<string> GetRoleByID(string id)
+        {
+            List<Role> roles = dbContext.Roles.SqlQuery("SELECT * FROM Roles WHERE id IN (SELECT roleID FROM Credential WHERE groupID IN (SELECT groupID FROM Users WHERE Users.id = @id))", new SqlParameter("@id", id)).ToList();
+            List<string> res = new List<string>();
+            roles.ForEach(role =>
+            {
+                res.Add(role.id);
+            });
+            return res;
         }
     }
 }

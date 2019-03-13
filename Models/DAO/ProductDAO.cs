@@ -48,5 +48,12 @@ namespace Models.DAO
         {
             return dbContext.Products.SingleOrDefault(product => product.id.Equals(id));
         }
+
+        public void UpdateBuyCount(string id, int quantity)
+        {
+            var product = dbContext.Products.First(item => item.id == id);
+            product.buyCount += quantity;
+            dbContext.SaveChanges();
+        }
     }
 }

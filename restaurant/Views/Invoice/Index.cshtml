@@ -6,9 +6,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-<button class="btn btn-primary" role="button" data-toggle="modal" data-target="#modalAddInvoice">Thêm hóa đơn</button>
-
 <!-- The Modal -->
 <div class="modal" id="modalAddInvoice">
     <div class="modal-dialog modal-dialog-centered modal-xl">
@@ -75,4 +72,10 @@
     </div>
 
 </div>
+
+<script>
+    $('.custom-navbar').html(`<button class="btn btn-info btn-sm" role="button" data-toggle="modal" data-target="#modalAddInvoice">
+                                <span class="glyphicon glyphicon-plus"></span> Thêm
+                              </button>`);
+</script>
 

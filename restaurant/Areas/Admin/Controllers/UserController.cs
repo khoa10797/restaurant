@@ -1,6 +1,7 @@
 ﻿using Models.DAO;
 using Models.EF;
 using PagedList;
+using restaurant.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,15 +16,24 @@ namespace restaurant.Areas.Admin.Controllers
         private UserDAO userDAO = new UserDAO();
 
         // GET: Admin/User
+        [Credential(roleID = "VIEW_USER")]
         public ActionResult Index(int? page)
         {
             var users = userDAO.GetAllUsers();
             int pageSize = 30;
             int pageNumber = (page ?? 1);
+
             return View(users.OrderBy(user => user.id).ToPagedList(pageNumber, pageSize));
         }
 
+        [Credential(roleID = "CREATE_USER")]
+        public ActionResult Create()
+        {
+            return View();
+        }
+
         [HttpPost]
+        [Credential(roleID = "CREATE_USER")]
         public ActionResult AddUser(User user)
         {
             userDAO.Add(user);
@@ -31,6 +41,7 @@ namespace restaurant.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [Credential(roleID = "DELETE_USER")]
         public ActionResult RemoveUser(string id)
         {
             userDAO.Remove(id);

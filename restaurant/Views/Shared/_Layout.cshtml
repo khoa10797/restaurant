@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var user = Session["user"] as Models.EF.User;
+}
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -37,6 +41,18 @@
                 <a href="@Url.Action("Index", "Kitchen")" class="list-group-item list-group-item-action bg-light"><i class="fas fa-utensils"></i> Nhà bếp</a>
                 <a href="@Url.Action("Index", "Order")" class="list-group-item list-group-item-action bg-light"><i class="fas fa-concierge-bell"></i> Xem thông tin bàn</a>
                 <a href="@Url.Action("Index", "Invoice")" class="list-group-item list-group-item-action bg-light"><i class="fas fa-file-invoice-dollar"></i> Hóa đơn</a>
+                @if (user != null && user.groupID == "Admin")
+                {
+                    <a href="@Url.Action("Index", "User")" class="list-group-item list-group-item-action bg-light">Nhân viên</a>
+                    <a href="@Url.Action("Index", "Product")" class="list-group-item list-group-item-action bg-light">Món ăn</a>
+                    <a class="list-group-item list-group-item-action bg-light" data-toggle="collapse" href="#collapseReport" aria-expanded="false" aria-controls="collapseReport">
+                        Thống kê <i class="fas fa-angle-down" style="position: relative; left: 6px; top: 1px;"></i>
+                    </a>
+                    <ul class="collapse list-unstyled" id="collapseReport">
+                        <li><a href="@Url.Action("Index", "Report")" class="list-group-item list-group-item-action bg-light">Doanh thu</a></li>
+                        <li><a href="#" class="list-group-item list-group-item-action bg-light">Tìm kiếm</a></li>
+                    </ul>
+                }
             </div>
         </div>
         <!-- /#sidebar-wrapper -->
@@ -61,7 +77,16 @@
 
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="">Đăng nhập</a>
+                            @{
+                                if (user == null)
+                                {
+                                    <a class="nav-link" href="@Url.Action("Index", "Login")">Đăng nhập</a>
+                                }
+                                else
+                                {
+                                    <a class="nav-link" href="@Url.Action("Logout", "Login")" style="color: #1a73e8;"> @user.accountName</a>
+                                }
+                            }
                         </li>
                     </ul>
                 </div>

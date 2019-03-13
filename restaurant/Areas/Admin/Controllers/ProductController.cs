@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PagedList;
+using restaurant.Models;
 
 namespace restaurant.Areas.Admin.Controllers
 {
@@ -15,20 +16,23 @@ namespace restaurant.Areas.Admin.Controllers
         ProductDAO productDAO = new ProductDAO();
 
         // GET: Admin/Product
+        [Credential(roleID = "VIEW_PRODUCT")]
         public ActionResult Index(int? page)
         {
             var product = productDAO.GetAllProduct();
-            int pageSize = 30;
+            int pageSize = 20;
             int pageNumber = (page ?? 1);
             return View(product.OrderBy(item => item.id).ToPagedList(pageNumber, pageSize));
         }
 
+        [Credential(roleID = "CREATE_PRODUCT")]
         public ActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [Credential(roleID = "CREATE_PRODUCT")]
         public ActionResult AddProduct(ProductUpload upload)
         {
             try
@@ -55,6 +59,14 @@ namespace restaurant.Areas.Admin.Controllers
             }
         }
 
+        [HttpPost]
+        [Credential(roleID = "DELETE_PRODUCT")]
+        public ActionResult RemoveProduct(string id)
+        {
+            productDAO.Remove(id);
+            return Json("true", JsonRequestBehavior.AllowGet);
+        }
+
         private Product GetProductFromUpload(ProductUpload upload)
         {
             Product product = new Product()
@@ -69,13 +81,6 @@ namespace restaurant.Areas.Admin.Controllers
             };
 
             return product;
-        }
-
-        [HttpPost]
-        public ActionResult RemoveProduct(string id)
-        {
-            productDAO.Remove(id);
-            return Json("true", JsonRequestBehavior.AllowGet);
         }
     }
 }

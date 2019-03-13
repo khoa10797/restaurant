@@ -23,7 +23,7 @@
                     <td>@item.tableID</td>
                     <td>@item.Product.productName</td>
                     <td>@item.quantity</td>
-                    <td><a href="@Url.Action("Complete" ,new { invoiceDetailsID = item.id })" class="glyphicon glyphicon-ok"></a></td>
+                    <td><a href="@Url.Action("Complete" ,new { invoiceDetailsID = item.id, productId = item.Product.id, quantity =  @item.quantity })" class="glyphicon glyphicon-ok"></a></td>
                 </tr>
             }
         </tbody>

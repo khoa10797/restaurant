@@ -12,6 +12,7 @@ namespace Models.EF
         {
         }
 
+        public virtual DbSet<GroupUser> GroupUsers { get; set; }
         public virtual DbSet<Invoice> Invoices { get; set; }
         public virtual DbSet<InvoiceDetail> InvoiceDetails { get; set; }
         public virtual DbSet<Product> Products { get; set; }
@@ -22,6 +23,17 @@ namespace Models.EF
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<GroupUser>()
+                .HasMany(e => e.Users)
+                .WithOptional(e => e.GroupUser)
+                .HasForeignKey(e => e.groupID)
+                .WillCascadeOnDelete();
+
+            modelBuilder.Entity<GroupUser>()
+                .HasMany(e => e.Roles)
+                .WithMany(e => e.GroupUsers)
+                .Map(m => m.ToTable("Credential").MapLeftKey("groupID").MapRightKey("roleID"));
+
             modelBuilder.Entity<Invoice>()
                 .HasMany(e => e.Tables)
                 .WithMany(e => e.Invoices)
@@ -31,11 +43,6 @@ namespace Models.EF
                 .HasMany(e => e.Products)
                 .WithRequired(e => e.ProductCategory)
                 .HasForeignKey(e => e.categoryID);
-
-            modelBuilder.Entity<User>()
-                .HasMany(e => e.Roles)
-                .WithMany(e => e.Users)
-                .Map(m => m.ToTable("UserHasRole").MapLeftKey("userID").MapRightKey("roleID"));
         }
     }
 }

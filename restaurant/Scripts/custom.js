@@ -270,6 +270,9 @@
             success: function () {
                 var rowId = '#u' + userId;
                 $(rowId).remove();
+            },
+            error: function () {
+                alert("Bạn không được phép xóa người dùng!")
             }
         });
     });
@@ -284,6 +287,9 @@
             success: function () {
                 var rowId = '#p' + productId;
                 $(rowId).remove();
+            },
+            error: function () {
+                alert("Bạn không được phép xóa món ăn!")
             }
         });
     });

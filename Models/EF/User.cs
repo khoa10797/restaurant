@@ -8,12 +8,6 @@ namespace Models.EF
 
     public partial class User
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public User()
-        {
-            Roles = new HashSet<Role>();
-        }
-
         [StringLength(20)]
         public string id { get; set; }
 
@@ -40,7 +34,9 @@ namespace Models.EF
         [StringLength(65)]
         public string accountPassword { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Role> Roles { get; set; }
+        [StringLength(20)]
+        public string groupID { get; set; }
+
+        public virtual GroupUser GroupUser { get; set; }
     }
 }

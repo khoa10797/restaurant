@@ -1,5 +1,6 @@
 ﻿using Models.DAO;
 using Models.EF;
+using restaurant.Models;
 using PagedList;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ namespace restaurant.Controllers
         private TableDAO tableDAO = new TableDAO();
 
         // GET: Pay
+        [Credential(roleID = "VIEW_INVOICE")]
         public ActionResult Index()
         {
             ViewBag.ListInvoice = invoiceDAO.GetAllUnpayInvoice();
@@ -30,6 +32,7 @@ namespace restaurant.Controllers
             return PartialView("_ListTable", tables.OrderBy(table => table.id).ToPagedList(pageNumber, pageSize));
         }
 
+        [Credential(roleID = "VIEW_INVOICE")]
         public ActionResult PayDetails(string invoiceID)
         {
             List<Table> tables = tableDAO.GetAllTableByInvoiceId(invoiceID);
@@ -49,6 +52,7 @@ namespace restaurant.Controllers
             return View("Details");
         }
 
+        [Credential(roleID = "PAY_INVOICE")]
         public ActionResult PayInvoice(string invoiceID)
         {
             List<Table> tables = tableDAO.GetAllTableByInvoiceId(invoiceID);
@@ -61,6 +65,7 @@ namespace restaurant.Controllers
         }
 
         [HttpPost]
+        [Credential(roleID = "CREATE_INVOICE")]
         public ActionResult AddInvoice(string customerName, string customerPhone)
         {
             Invoice invoice = new Invoice()

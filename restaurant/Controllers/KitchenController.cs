@@ -11,6 +11,7 @@ namespace restaurant.Controllers
     {
 
         private InvoiceDetailsDAO invoiceDetailsDAO = new InvoiceDetailsDAO();
+        private ProductDAO productDAO = new ProductDAO();
 
         // GET: Kitchen
         public ActionResult Index()
@@ -19,11 +20,11 @@ namespace restaurant.Controllers
             return View();
         }
 
-        public ActionResult Complete(int invoiceDetailsID)
+        public ActionResult Complete(int invoiceDetailsID, string productId, int quantity)
         {
             invoiceDetailsDAO.SetStatusOff(invoiceDetailsID);
-            SetViewBag();
-            return View("Index");
+            productDAO.UpdateBuyCount(productId, quantity);
+            return RedirectToAction("Index");
         }
 
         private void SetViewBag()

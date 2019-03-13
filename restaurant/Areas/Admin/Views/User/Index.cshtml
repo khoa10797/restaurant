@@ -3,122 +3,54 @@
 @{
     ViewBag.Title = "Người dùng";
     ViewBag.SubTitle = "Quản lý người dùng";
-    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<nav class="tab-controls">
-    <div class="nav nav-tabs" role="tablist">
-        <a class="nav-item nav-link active" href="#list-user" id="listUser-tab" data-toggle="tab" role="tab"
-           aria-controls="waitting" aria-selected="true">Danh sách nhân viên</a>
-        <a class="nav-item nav-link" href="#add-user" id="addUser-tab" data-toggle="tab" role="tab" aria-controls="order"
-           aria-selected="false">Thêm nhân viên</a>
-    </div>
-</nav>
-
-<div class="tab-content">
-    <div class="tab-pane fade show active" id="list-user" role="tabpanel" aria-labelledby="listUser-tab">
-        <!-- List user -->
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Mã</th>
-                    <th>Họ và tên</th>
-                    <th>CMND</th>
-                    <th>Ngày sinh</th>
-                    <th>Giới tính</th>
-                    <th>Địa chỉ</th>
-                    <th>Điện thoại</th>
-                    <th>Tài khoản</th>
-                    <th>Mật khẩu</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr id="u@(item.id)">
-                        <td>@item.id</td>
-                        <td>@item.name</td>
-                        <td>@item.cmnd</td>
-                        <td class="birthday" data-birthday="@item.birthday"></td>
-                        <td class="user-sex" data-sex="@item.sex"></td>
-                        <td>@item.address</td>
-                        <td>@item.phoneNumber</td>
-                        <td>@item.accountName</td>
-                        <td>@item.accountPassword</td>
-                        <td><span class="glyphicon glyphicon-trash btn-remove-user" data-id="@item.id" style="color: red"></span></td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-
-        <div class="container-paged-list">
-            Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
-            <br />
-            @Html.PagedListPager(Model, page => Url.Action("Index", new { page, ViewBag.CategoryId }))
-        </div>
-    </div>
-
-    <div class="tab-pane fade" id="add-user" role="tabpanel" aria-labelledby="addUser-tab">
-        <!-- Add user -->
-        @using (Html.BeginForm("AddUser", "User", FormMethod.Post, new { @class = "row" }))
+<table class="table">
+    <thead>
+        <tr>
+            <th>Mã</th>
+            <th>Họ và tên</th>
+            <th>CMND</th>
+            <th>Ngày sinh</th>
+            <th>Giới tính</th>
+            <th>Địa chỉ</th>
+            <th>Điện thoại</th>
+            <th>Tài khoản</th>
+            <th>Mật khẩu</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
         {
-            <div class="col">
-                <div class="form-group">
-                    <label for="user-id">Mã nhân viên</label>
-                    <input type="text" class="form-control" id="user-id" name="id" required>
-                </div>
-                <div class="form-group">
-                    <label for="user-name">Tên nhân viên</label>
-                    <input type="text" class="form-control" id="user-name" name="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="user-cmnd">Số CMND</label>
-                    <input type="text" class="form-control" id="user-cmnd" name="cmnd" required>
-                </div>
-                <div class="form-group">
-                    <label for="user-birthday">Ngày sinh</label>
-                    <input type="date" class="form-control" id="user-birthday" name="birthday" required>
-                </div>
-                <div class="form-group">
-                    <label>Giới tính</label>
-                    <div>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="user-male" name="sex" class="custom-control-input" value="true">
-                            <label class="custom-control-label" for="user-male">Nam</label>
-                        </div>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="user-female" name="sex" class="custom-control-input" value="false">
-                            <label class="custom-control-label" for="user-female">Nữ</label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-group">
-                    <label for="user-addr">Địa chỉ</label>
-                    <input type="text" class="form-control" id="user-addr" name="address" required>
-                </div>
-                <div class="form-group">
-                    <label for="user-phone">Điện thoại</label>
-                    <input type="text" class="form-control" id="user-phone" name="phoneNumber" required>
-                </div>
-                <div class="form-group">
-                    <label for="user-account">Tên tài khoản</label>
-                    <input type="text" class="form-control" id="user-account" name="accountName" required>
-                </div>
-                <div class="form-group">
-                    <label for="user-password">Mật khẩu</label>
-                    <input type="password" class="form-control" id="user-password" name="accountPassword" required>
-                </div>
-                <div class="form-group">
-                    <input type="submit" class="btn btn-primary" value="Thêm nhân viên" style="position: relative;top: 14px;will-change: top, left;" />
-                </div>
-            </div>
+            <tr id="u@(item.id)">
+                <td>@item.id</td>
+                <td>@item.name</td>
+                <td>@item.cmnd</td>
+                <td class="birthday" data-birthday="@item.birthday"></td>
+                <td class="user-sex" data-sex="@item.sex"></td>
+                <td>@item.address</td>
+                <td>@item.phoneNumber</td>
+                <td>@item.accountName</td>
+                <td>@item.accountPassword</td>
+                <td><span class="glyphicon glyphicon-trash btn-remove-user" data-id="@item.id" style="color: red"></span></td>
+            </tr>
         }
-    </div>
+    </tbody>
+</table>
 
+<div class="container-paged-list">
+    Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+    <br />
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, ViewBag.CategoryId }))
 </div>
+
+<script>
+    $('.custom-navbar').html(`<a href="@Url.Action("Create", "User")" class="btn btn-info btn-sm">
+                                    <span class="glyphicon glyphicon-plus"></span> Thêm
+                              </a>`);
+</script>
 
 
