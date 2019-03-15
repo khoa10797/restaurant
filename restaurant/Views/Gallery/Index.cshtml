@@ -1,0 +1,72 @@
+﻿@model PagedList.IPagedList<Models.EF.Product>
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Thực đơn";
+    Layout = "~/Views/Shared/_LayoutClient.cshtml";
+}
+
+<section class="banner_bottom proj py-5">
+    <div class="wrap_view">
+        <h1 class="heading text-center text-uppercase mb-5"> Thực đơn </h1>
+        <div class="inner_sec">
+            <ul class="portfolio-categ filter">
+                <li id="link-mon-kv">
+                    <a href="@Url.Action("Index", new { categoryId = "01" })" title="Category 1">Món khai vị</a>
+                </li>
+                <li id="link-mon-chinh">
+                    <a href="@Url.Action("Index", new { categoryId = "02" })" title="Category 2">Món chính</a>
+                </li>
+                <li id="link-mon-tm">
+                    <a href="@Url.Action("Index", new { categoryId = "03" })" title="Category 3">Tráng miệng</a>
+                </li>
+            </ul>
+
+            <div class="row container-fluid" style="margin: unset;">
+
+                @foreach (var item in Model)
+                {
+                    <div class="col-6 col-md-4 col-lg-4 col-xl-3" style="margin: 10px 0px;">
+                        <div class="image-block img-hover">
+                            <div class="content-product">
+                                <img src="@item.picture" class="img-responsive" alt="Cafe In image">
+                                <div class="port-info" data-action="select" data-id="@item.id">
+                                    <h5>@item.productName</h5>
+                                    <div class="info-food">
+                                        <p>@(item.price)000 đ</p>
+                                        <i class="fas"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+            <div class="container-paged-list">
+                Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+                <br />
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page, ViewBag.CategoryId }))
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+<script>
+    $('#nav-link-gallery').addClass('active');
+
+    var id = @ViewBag.CategoryId;
+    switch (id) {
+        case 1:
+            $('#link-mon-kv').addClass('active');
+            break;
+        case 2:
+            $('#link-mon-chinh').addClass('active');
+            break;
+        default:
+            $('#link-mon-tm').addClass('active');
+    }
+</script>

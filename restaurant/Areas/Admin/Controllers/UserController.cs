@@ -26,14 +26,14 @@ namespace restaurant.Areas.Admin.Controllers
             return View(users.OrderBy(user => user.id).ToPagedList(pageNumber, pageSize));
         }
 
-        [Credential(roleID = "CREATE_USER")]
+        [Credential(roleID = "ADD_USER")]
         public ActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
-        [Credential(roleID = "CREATE_USER")]
+        [Credential(roleID = "ADD_USER")]
         public ActionResult AddUser(User user)
         {
             userDAO.Add(user);
@@ -41,7 +41,7 @@ namespace restaurant.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [Credential(roleID = "DELETE_USER")]
+        [Credential(roleID = "REMOVE_USER")]
         public ActionResult RemoveUser(string id)
         {
             userDAO.Remove(id);

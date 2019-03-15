@@ -62,18 +62,28 @@
         //Remove order
 
         $('.remove-order').click(function () {
-            let invoiceDetailsId = $(this).data('id');
+            let id = $(this).data('id');
             let tableId = $(this).data('values');
-            hub.server.removeOrder(invoiceDetailsId).done(function () {
+            hub.server.removeOrder(id).done(function () {
                 window.location.replace('/Order/Index?tableID=' + tableId);
             });
         });
 
+        //Complete
+
+        $('.complete-food').click(function () {
+            var id = $(this).data('id');
+            var productId = $(this).data('product');
+            var quantity = $(this).data('quantity');
+
+            hub.server.completeOrder(id, productId, quantity);
+        });
     });
 
     function init() {
         caculatePrice();
         formatMoneyForPayOrder();
+        caculatePriceInvoiceDetail();
     }
 
 
@@ -179,32 +189,29 @@
         }
     });
 
-    //Add or remove product to cart
-
-    $('.btn-select-product').click(function () {
-        var productId = $(this).data('values');
+    //Add or remove product in cart
+    $('.port-info').click(function () {
         var _this = this;
-
-        if ($(this).data('action') == 'select') {
+        var action = $(this).data('action');
+        var productId = $(this).data('id');
+        if (action == 'select') {
             $.ajax({
                 url: "/Cart/AddCart/",
                 type: "POST",
                 data: { productId: productId },
                 success: function () {
-                    console.log('Đã chọn mặt hàng');
-                    $(_this).addClass('btn-danger').removeClass('btn-info');
-                    $(_this).html(`<span class="glyphicon glyphicon-trash"></span> Xóa`);
+                    $(_this).find('.fas').addClass('fa-check-circle');
                     $(_this).data('action', 'remove');
                 }
             });
-        } else {
+        }
+        else {
             $.ajax({
                 url: "/Cart/RemoveCart/",
                 type: "POST",
                 data: { productId: productId },
                 success: function () {
-                    $(_this).addClass('btn-info').removeClass('btn-danger');
-                    $(_this).html(`<span class="glyphicon glyphicon-check"></span> Chọn`);
+                    $(_this).find('.fas').removeClass('fa-check-circle');
                     $(_this).data('action', 'select');
                 }
             });
@@ -292,5 +299,49 @@
                 alert("Bạn không được phép xóa món ăn!")
             }
         });
+    });
+
+    // Format status in table invoice
+    $('.status-invoice').each(function () {
+        var status = $(this).data('status');
+        if (status == 'True')
+            $(this).text('Chưa thanh toán')
+        else
+            $(this).text('Đã thanh toán')
+    });
+
+    // Format date created in table invoice
+    $('.format-date').each(function () {
+        var s = $(this).data('date').split(' ');
+        var day = s[0];
+        $(this).text(day);
+    });
+
+    // Format invoice detail
+
+    function caculatePriceInvoiceDetail() {
+        let price = 0;
+        $(".row-invoice-detail").each(function () {
+
+            $(this).find('td').each(function () {
+                let priceProduct = $(this).data('price');
+                let inputVal = $(this).data('values');
+
+                $(this).find('.price-product').text(parseFloat(priceProduct * 1000).toFixed(0).replace(/(\d)(?=(\d{3})+\b)/g, "$1,"));
+                if ($.isNumeric(inputVal)) {
+                    price += parseFloat(inputVal);
+                    $(this).find('.total-price-product').text(parseFloat(inputVal * 1000).toFixed(0).replace(/(\d)(?=(\d{3})+\b)/g, "$1,"));
+                }
+            });
+
+        });
+        price = (price * 1000).toFixed(0).replace(/(\d)(?=(\d{3})+\b)/g, "$1,");
+        $("#total-price-invoice").text("Tổng tiền: " + price + " VNĐ");
+    }
+
+    // Event change datetime picker
+    $('#datetime-picker').change(function () {
+        var date = $(this).val();
+        window.location.replace("/Admin/Report/FindInvoice?date=" + date);
     });
 });

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
+using restaurant.Models;
 
 namespace restaurant.Controllers
 {
@@ -17,16 +18,11 @@ namespace restaurant.Controllers
         private ProductDAO productDAO = new ProductDAO();
         private TableDAO tableDAO = new TableDAO();
 
-
-        public ActionResult Index(string tableID = "101")
+        [Credential(roleID = "VIEW_INVOICE_D")]
+        public ActionResult Index(string tableID)
         {
-            SetViewBag(tableID);
-            return View("Index");
-        }
-
-        public ActionResult DeleteInvoiceDetails(int invoiceDetailsID, string tableID)
-        {
-            invoiceDetailsDAO.Remove(invoiceDetailsID);
+            if (tableID == null)
+                tableID = tableDAO.GetTableHasPeople().ToList()[0].id;
             SetViewBag(tableID);
             return View("Index");
         }
@@ -37,8 +33,8 @@ namespace restaurant.Controllers
             ViewBag.TableID = tableID;
             ViewBag.InvoiceID = invoiceID;
             ViewBag.ListTable = new SelectList(tableDAO.GetAllTable().Where(table => table.status == true), "id", "id", tableID);
-            ViewBag.ListOrder = invoiceDetailsDAO.GetAllByInvoiceAndTable(invoiceID, tableID).Where(x => x.status == true);
-            ViewBag.ListInvoiceDetail = invoiceDetailsDAO.GetAllByInvoiceAndTable(invoiceID, tableID).Where(x => x.status == false);
+            ViewBag.ListOrder = invoiceDetailsDAO.GetByInvoiceAndTable(invoiceID, tableID).Where(x => x.status == true).ToList();
+            ViewBag.ListInvoiceDetail = invoiceDetailsDAO.GetByInvoiceAndTable(invoiceID, tableID).Where(x => x.status == false);
         }
     }
 }

@@ -35,12 +35,14 @@ namespace Models.DAO
 
         public IQueryable<Product> GetByCategoryID(string categoryID)
         {
-            return dbContext.Products.AsQueryable().Where(product => product.categoryID.Equals(categoryID));
+            return dbContext.Products.AsQueryable()
+                .Where(product => product.categoryID.Equals(categoryID));
         }
 
         public string GetNameByID(string id)
         {
-            string name = dbContext.Products.First(product => product.id == id).productName;
+            string name = dbContext.Products
+                .First(product => product.id == id).productName;
             return name;
         }
 
@@ -54,6 +56,14 @@ namespace Models.DAO
             var product = dbContext.Products.First(item => item.id == id);
             product.buyCount += quantity;
             dbContext.SaveChanges();
+        }
+
+        public List<Product> SelectTopByCategory(string categoryID)
+        {
+            return dbContext.Products
+                .Where(item => item.categoryID == categoryID)
+                .OrderByDescending(item => item.buyCount)
+                .Take(4).ToList();
         }
     }
 }

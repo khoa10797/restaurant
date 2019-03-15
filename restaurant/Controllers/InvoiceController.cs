@@ -35,37 +35,38 @@ namespace restaurant.Controllers
         [Credential(roleID = "VIEW_INVOICE")]
         public ActionResult PayDetails(string invoiceID)
         {
-            List<Table> tables = tableDAO.GetAllTableByInvoiceId(invoiceID);
+            List<Table> tables = tableDAO.GetTableByInvoiceId(invoiceID);
             List<InvoiceDetail> invoiceDetails = new List<InvoiceDetail>();
 
             tables.ForEach(table =>
             {
-                invoiceDetailsDAO.GetAllByInvoiceAndTable(invoiceID, table.id).ToList().ForEach(invoiceDetail =>
+                invoiceDetailsDAO.GetByInvoiceAndTable(invoiceID, table.id).ToList().ForEach(invoiceDetail =>
                 {
                     invoiceDetails.Add(invoiceDetail);
                 });
             });
 
-            ViewBag.Invoice = invoiceDAO.GetInvoiceById(invoiceID);
+            ViewBag.Invoice = invoiceDAO.GetById(invoiceID);
             ViewBag.ListInvoiceDetails = invoiceDetails;
-            ViewBag.ListTable = tableDAO.GetAllTableByInvoiceId(invoiceID);
+            ViewBag.ListTable = tableDAO.GetTableByInvoiceId(invoiceID);
             return View("Details");
         }
 
         [Credential(roleID = "PAY_INVOICE")]
         public ActionResult PayInvoice(string invoiceID)
         {
-            List<Table> tables = tableDAO.GetAllTableByInvoiceId(invoiceID);
+            List<Table> tables = tableDAO.GetTableByInvoiceId(invoiceID);
             tables.ForEach(table =>
             {
                 tableDAO.ChangeStatus(table.id);
             });
             invoiceDAO.SetOffStatus(invoiceID);
+            invoiceDAO.CaculatingMoney(invoiceID);
             return RedirectToAction("Index");
         }
 
         [HttpPost]
-        [Credential(roleID = "CREATE_INVOICE")]
+        [Credential(roleID = "ADD_INVOICE")]
         public ActionResult AddInvoice(string customerName, string customerPhone)
         {
             Invoice invoice = new Invoice()
@@ -73,13 +74,15 @@ namespace restaurant.Controllers
                 id = Common.CreateKey.Invoice(),
                 customerName = customerName,
                 customerPhone = customerPhone,
-                status = true
+                status = true,
+                dataCreate = DateTime.Now
             };
             invoiceDAO.Add(invoice);
             return Json(invoice, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
+        [Credential(roleID = "ADD_TABLE_INVOICE")]
         public void AddTableForInvoice(string invoiceId, List<int> listTable)
         {
             tableDAO.AddTableForInvoice(invoiceId, listTable);

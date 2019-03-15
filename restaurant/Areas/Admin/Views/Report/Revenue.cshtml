@@ -1,8 +1,41 @@
 ﻿
 @{
-    ViewBag.Title = "Revenue";
+    ViewBag.Title = "Doanh thu";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
+<table class="table table-responsive-sm">
+    <thead>
+        <tr>
+            <th>Tháng 1</th>
+            <th>Tháng 2</th>
+            <th>Tháng 3</th>
+            <th>Tháng 4</th>
+            <th>Tháng 5</th>
+            <th>Tháng 6</th>
+            <th>Tháng 7</th>
+            <th>Tháng 8</th>
+            <th>Tháng 9</th>
+            <th>Tháng 10</th>
+            <th>Tháng 11</th>
+            <th>Tháng 12</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="color: #212529; font-weight: 400">@ViewBag.Revenue[0]</td>
+            <td>@ViewBag.Revenue[1]</td>
+            <td>@ViewBag.Revenue[2]</td>
+            <td>@ViewBag.Revenue[3]</td>
+            <td>@ViewBag.Revenue[4]</td>
+            <td>@ViewBag.Revenue[5]</td>
+            <td>@ViewBag.Revenue[6]</td>
+            <td>@ViewBag.Revenue[7]</td>
+            <td>@ViewBag.Revenue[8]</td>
+            <td>@ViewBag.Revenue[9]</td>
+            <td>@ViewBag.Revenue[10]</td>
+            <td>@ViewBag.Revenue[11]</td>
+        </tr>
+    </tbody>
+</table>
 

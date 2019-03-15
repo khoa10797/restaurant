@@ -27,6 +27,11 @@ namespace Models.EF
 
         public bool? status { get; set; }
 
+        [Column(TypeName = "date")]
+        public DateTime? dataCreate { get; set; }
+
+        public double? price { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<InvoiceDetail> InvoiceDetails { get; set; }
 

@@ -16,7 +16,7 @@ namespace restaurant.Controllers
         // GET: Kitchen
         public ActionResult Index()
         {
-            SetViewBag();
+            ViewBag.ListOrder = invoiceDetailsDAO.GetAllWaiting();
             return View();
         }
 
@@ -25,11 +25,6 @@ namespace restaurant.Controllers
             invoiceDetailsDAO.SetStatusOff(invoiceDetailsID);
             productDAO.UpdateBuyCount(productId, quantity);
             return RedirectToAction("Index");
-        }
-
-        private void SetViewBag()
-        {
-            ViewBag.ListOrder = invoiceDetailsDAO.GetAllInvoiceDetailsWaiting();
         }
     }
 }
