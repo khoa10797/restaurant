@@ -179,32 +179,29 @@
         }
     });
 
-    //Add or remove product to cart
-
-    $('.btn-select-product').click(function () {
-        var productId = $(this).data('values');
+    //Add or remove product in cart
+    $('.port-info').click(function () {
         var _this = this;
-
-        if ($(this).data('action') == 'select') {
+        var action = $(this).data('action');
+        var productId = $(this).data('id');
+        if (action == 'select') {
             $.ajax({
                 url: "/Cart/AddCart/",
                 type: "POST",
                 data: { productId: productId },
                 success: function () {
-                    console.log('Đã chọn mặt hàng');
-                    $(_this).addClass('btn-danger').removeClass('btn-info');
-                    $(_this).html(`<span class="glyphicon glyphicon-trash"></span> Xóa`);
+                    $(_this).find('.fas').addClass('fa-check-circle');
                     $(_this).data('action', 'remove');
                 }
             });
-        } else {
+        }
+        else {
             $.ajax({
                 url: "/Cart/RemoveCart/",
                 type: "POST",
                 data: { productId: productId },
                 success: function () {
-                    $(_this).addClass('btn-info').removeClass('btn-danger');
-                    $(_this).html(`<span class="glyphicon glyphicon-check"></span> Chọn`);
+                    $(_this).find('.fas').removeClass('fa-check-circle');
                     $(_this).data('action', 'select');
                 }
             });

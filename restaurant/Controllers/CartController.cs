@@ -71,7 +71,7 @@ namespace restaurant.Controllers
         public ActionResult RemoveSession()
         {
             Session.Remove("cart");
-            return RedirectToAction("Index", "Menu");
+            return RedirectToAction("Index", "Gallery");
         }
     }
 }

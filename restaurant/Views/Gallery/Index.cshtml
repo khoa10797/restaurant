@@ -1,0 +1,136 @@
+﻿@model PagedList.IPagedList<Models.EF.Product>
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Thực đơn";
+    Layout = "~/Views/Shared/_LayoutClient.cshtml";
+}
+
+<section class="banner_bottom proj py-5">
+    <div class="wrap_view">
+        <h1 class="heading text-center text-uppercase mb-5"> Thực đơn </h1>
+        <div class="inner_sec">
+            <ul class="portfolio-categ filter">
+                <li class="port-filter all active">
+                    <a href="#">All</a>
+                </li>
+                <li class="">
+                    <a href="@Url.Action("Index", new { categoryId = "01" })" title="Category 1">Món khai vị</a>
+                </li>
+                <li class="">
+                    <a href="@Url.Action("Index", new { categoryId = "02" })" title="Category 2">Món chính</a>
+                </li>
+                <li class="">
+                    <a href="@Url.Action("Index", new { categoryId = "03" })" title="Category 3">Tráng miệng</a>
+                </li>
+            </ul>
+
+            <div class="row container-fluid" style="margin: unset;">
+
+                @foreach (var item in Model)
+                {
+                    <div class="col-6 col-md-4 col-lg-4 col-xl-3" style="margin: 10px 0px;">
+                        <div class="image-block img-hover">
+                            <div class="content-product">
+                                <img src="@item.picture" class="img-responsive" alt="Cafe In image">
+                                <div class="port-info" data-action="select" data-id="@item.id">
+                                    <h5>@item.productName</h5>
+                                    <div class="info-food">
+                                        <p>@(item.price)000 đ</p>
+                                        <i class="fas"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+            <div class="container-paged-list">
+                Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+                <br />
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page, ViewBag.CategoryId }))
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<section class="food-Slider py-5">
+    <div class="container">
+        <h2 class="heading text-center text-uppercase mb-5"> Special Food </h2>
+        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row">
+                        <div class="col-lg-3 col-sm-6 slidering">
+                            <div class="thumbnail"><img src="~/images/item/g1.jpg" alt="Image" style="max-width:100%;"></div>
+                            <h5 class="my-2 text-left text-uppercase">Corn Toast <span class="text-right">--19$</span></h5>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 slidering">
+                            <div class="thumbnail"><img src="~/images/item/g2.jpg" alt="Image" style="max-width:100%;"></div>
+                            <h5 class="my-2 text-left text-uppercase">Corn Toast <span class="text-right">--19$</span></h5>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 slidering">
+                            <div class="thumbnail"><img src="~/images/item/g3.jpg" alt="Image" style="max-width:100%;"></div>
+                            <h5 class="my-2 text-left text-uppercase">Corn Toast <span class="text-right">--19$</span></h5>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 slidering">
+                            <div class="thumbnail"><img src="~/images/item/g4.jpg" alt="Image" style="max-width:100%;"></div>
+                            <h5 class="my-2 text-left text-uppercase">Corn Toast <span class="text-right">--19$</span></h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="row">
+                        <div class="col-lg-3 col-sm-6 slidering">
+                            <div class="thumbnail"><img src="~/images/item/g1.jpg" alt="Image" style="max-width:100%;"></div>
+                            <h5 class="my-2 text-left text-uppercase">Corn Toast <span class="text-right">--19$</span></h5>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 slidering">
+                            <div class="thumbnail"><img src="~/images/item/g2.jpg" alt="Image" style="max-width:100%;"></div>
+                            <h5 class="my-2 text-left text-uppercase">Corn Toast <span class="text-right">--19$</span></h5>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 slidering">
+                            <div class="thumbnail"><img src="~/images/item/g3.jpg" alt="Image" style="max-width:100%;"></div>
+                            <h5 class="my-2 text-left text-uppercase">Corn Toast <span class="text-right">--19$</span></h5>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 slidering">
+                            <div class="thumbnail"><img src="~/images/item/g4.jpg" alt="Image" style="max-width:100%;"></div>
+                            <h5 class="my-2 text-left text-uppercase">Corn Toast <span class="text-right">--19$</span></h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="row">
+                        <div class="col-lg-3 col-sm-6 slidering">
+                            <div class="thumbnail"><img src="~/images/item/g1.jpg" alt="Image" style="max-width:100%;"></div>
+                            <h5 class="my-2 text-left text-uppercase">Corn Toast <span class="text-right">--19$</span></h5>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 slidering">
+                            <div class="thumbnail"><img src="~/images/item/g2.jpg" alt="Image" style="max-width:100%;"></div>
+                            <h5 class="my-2 text-left text-uppercase">Corn Toast <span class="text-right">--19$</span></h5>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 slidering">
+                            <div class="thumbnail"><img src="~/images/item/g3.jpg" alt="Image" style="max-width:100%;"></div>
+                            <h5 class="my-2 text-left text-uppercase">Corn Toast <span class="text-right">--19$</span></h5>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 slidering">
+                            <div class="thumbnail"><img src="~/images/item/g4.jpg" alt="Image" style="max-width:100%;"></div>
+                            <h5 class="my-2 text-left text-uppercase">Corn Toast <span class="text-right">--19$</span></h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                <span class="fa fa-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                <span class="fa fa-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+</section>

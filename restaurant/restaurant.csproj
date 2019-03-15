@@ -185,10 +185,10 @@
     <Compile Include="Areas\Admin\Models\ProductUpload.cs" />
     <Compile Include="Common\CreateKey.cs" />
     <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\GalleryController.cs" />
     <Compile Include="Controllers\InvoiceController.cs" />
     <Compile Include="Controllers\KitchenController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -213,6 +213,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Content\solid.css" />
     <Content Include="Content\solid.min.css" />
+    <Content Include="Content\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fa-brands-400.svg" />
     <Content Include="fonts\fa-regular-400.svg" />
@@ -222,7 +223,19 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="images\icon\2.jpg" />
+    <Content Include="images\icon\dott.png" />
     <Content Include="images\item\anh_mau.jpg" />
+    <Content Include="images\item\g1.jpg" />
+    <Content Include="images\item\g10.jpg" />
+    <Content Include="images\item\g2.jpg" />
+    <Content Include="images\item\g3.jpg" />
+    <Content Include="images\item\g4.jpg" />
+    <Content Include="images\item\g5.jpg" />
+    <Content Include="images\item\g6.jpg" />
+    <Content Include="images\item\g7.jpg" />
+    <Content Include="images\item\g8.jpg" />
+    <Content Include="images\item\g9.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\custom.js" />
@@ -282,14 +295,14 @@
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Invoice\Details.cshtml" />
     <Content Include="Views\Invoice\Index.cshtml" />
-    <Content Include="Views\Menu\Index.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Cart\_ListTableCart.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutClient.cshtml" />
+    <Content Include="Views\Gallery\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="images\icon\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
