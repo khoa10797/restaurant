@@ -2,10 +2,10 @@
 @{
     ViewBag.Title = "Món ăn đã chọn";
     ViewBag.SubTitle = "Món ăn đã chọn";
-    Layout = "~/Views/Shared/_LayoutClient.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container" style="margin-top: 50px;">
+<div class="container">
     @if (ViewBag.ListCart == null || ViewBag.ListCart.Count == 0)
     {
         <h1>Bạn chưa chọn món ăn nào!</h1>
@@ -59,12 +59,12 @@
                 }
             </tbody>
         </table>
-
-        <script>
-            $('.custom-navbar').html(`<button class="btn btn-info btn-sm" role="button" data-toggle="modal" data-target="#modal-select-table">
-                                                        <span class="glyphicon glyphicon-check"></span> Xong
-                                                      </button>`);
-        </script>
     }
 
 </div>
+
+<script>
+    $('.custom-navbar').html(`<button class="btn btn-info btn-sm" role="button" data-toggle="modal" data-target="#modal-select-table">
+                                                        <span class="glyphicon glyphicon-check"></span> Xong
+                                                      </button>`);
+</script>

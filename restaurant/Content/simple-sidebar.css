@@ -87,3 +87,16 @@ body {
 #collapseReport li{
     padding-left: 20px;
 }
+
+.custom-navbar {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-brand h6{
+    margin-bottom: unset;
+}
+
+.list-group i{
+    margin-right: 10px;
+}

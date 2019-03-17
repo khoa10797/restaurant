@@ -14,7 +14,7 @@ namespace restaurant.Controllers
         ProductDAO productDAO = new ProductDAO();
         TableDAO tableDAO = new TableDAO();
 
-        // GET: Cart
+        [Credential(roleID = "VIEW_CART")]
         public ActionResult Index()
         {
             List<Cart> carts = Session["cart"] as List<Cart>;
@@ -31,6 +31,7 @@ namespace restaurant.Controllers
         }
 
         [HttpPost]
+        [Credential(roleID = "ADD_CART")]
         public ActionResult AddCart(string productId)
         {
             if (Session["cart"] == null)
@@ -52,6 +53,7 @@ namespace restaurant.Controllers
         }
 
         [HttpPost]
+        [Credential(roleID = "REMOVE_CART")]
         public ActionResult RemoveCart(string productId)
         {
             List<Cart> carts = Session["cart"] as List<Cart>;
@@ -60,6 +62,7 @@ namespace restaurant.Controllers
         }
 
         [HttpPost]
+        [Credential(roleID = "UPDATE_CART")]
         public ActionResult UpdateCart(string productId, int quantity)
         {
             List<Cart> carts = Session["cart"] as List<Cart>;

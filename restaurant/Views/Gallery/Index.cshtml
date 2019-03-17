@@ -10,16 +10,13 @@
         <h1 class="heading text-center text-uppercase mb-5"> Thực đơn </h1>
         <div class="inner_sec">
             <ul class="portfolio-categ filter">
-                <li class="port-filter all active">
-                    <a href="#">All</a>
-                </li>
-                <li class="">
+                <li id="link-mon-kv">
                     <a href="@Url.Action("Index", new { categoryId = "01" })" title="Category 1">Món khai vị</a>
                 </li>
-                <li class="">
+                <li id="link-mon-chinh">
                     <a href="@Url.Action("Index", new { categoryId = "02" })" title="Category 2">Món chính</a>
                 </li>
-                <li class="">
+                <li id="link-mon-tm">
                     <a href="@Url.Action("Index", new { categoryId = "03" })" title="Category 3">Tráng miệng</a>
                 </li>
             </ul>
@@ -59,7 +56,7 @@
 
 <section class="food-Slider py-5">
     <div class="container">
-        <h2 class="heading text-center text-uppercase mb-5"> Special Food </h2>
+        <h2 class="heading text-center text-uppercase mb-5"> Sản phẩm hot </h2>
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
@@ -134,3 +131,20 @@
         </div>
     </div>
 </section>
+
+
+<script>
+    $('#nav-link-gallery').addClass('active');
+
+    var id = @ViewBag.CategoryId;
+    switch (id) {
+        case 1:
+            $('#link-mon-kv').addClass('active');
+            break;
+        case 2:
+            $('#link-mon-chinh').addClass('active');
+            break;
+        default:
+            $('#link-mon-tm').addClass('active');
+    }
+</script>

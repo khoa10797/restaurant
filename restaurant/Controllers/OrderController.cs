@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
+using restaurant.Models;
 
 namespace restaurant.Controllers
 {
@@ -17,13 +18,14 @@ namespace restaurant.Controllers
         private ProductDAO productDAO = new ProductDAO();
         private TableDAO tableDAO = new TableDAO();
 
-
+        [Credential(roleID = "VIEW_INVOICE_D")]
         public ActionResult Index(string tableID = "101")
         {
             SetViewBag(tableID);
             return View("Index");
         }
 
+        [Credential(roleID = "REMOVE_INVOICE_D")]
         public ActionResult DeleteInvoiceDetails(int invoiceDetailsID, string tableID)
         {
             invoiceDetailsDAO.Remove(invoiceDetailsID);

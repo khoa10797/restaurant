@@ -25,14 +25,14 @@ namespace restaurant.Areas.Admin.Controllers
             return View(product.OrderBy(item => item.id).ToPagedList(pageNumber, pageSize));
         }
 
-        [Credential(roleID = "CREATE_PRODUCT")]
+        [Credential(roleID = "ADD_PRODUCT")]
         public ActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
-        [Credential(roleID = "CREATE_PRODUCT")]
+        [Credential(roleID = "ADD_PRODUCT")]
         public ActionResult AddProduct(ProductUpload upload)
         {
             try
@@ -60,7 +60,7 @@ namespace restaurant.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [Credential(roleID = "DELETE_PRODUCT")]
+        [Credential(roleID = "REMOVE_PRODUCT")]
         public ActionResult RemoveProduct(string id)
         {
             productDAO.Remove(id);

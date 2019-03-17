@@ -65,7 +65,7 @@ namespace restaurant.Controllers
         }
 
         [HttpPost]
-        [Credential(roleID = "CREATE_INVOICE")]
+        [Credential(roleID = "ADD_INVOICE")]
         public ActionResult AddInvoice(string customerName, string customerPhone)
         {
             Invoice invoice = new Invoice()
@@ -80,6 +80,7 @@ namespace restaurant.Controllers
         }
 
         [HttpPost]
+        [Credential(roleID = "ADD_TABLE_INVOICE")]
         public void AddTableForInvoice(string invoiceId, List<int> listTable)
         {
             tableDAO.AddTableForInvoice(invoiceId, listTable);
