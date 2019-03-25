@@ -40,13 +40,13 @@ namespace restaurant.Controllers
 
             tables.ForEach(table =>
             {
-                invoiceDetailsDAO.GetAllByInvoiceAndTable(invoiceID, table.id).ToList().ForEach(invoiceDetail =>
+                invoiceDetailsDAO.GetByInvoiceAndTable(invoiceID, table.id).ToList().ForEach(invoiceDetail =>
                 {
                     invoiceDetails.Add(invoiceDetail);
                 });
             });
 
-            ViewBag.Invoice = invoiceDAO.GetInvoiceById(invoiceID);
+            ViewBag.Invoice = invoiceDAO.GetById(invoiceID);
             ViewBag.ListInvoiceDetails = invoiceDetails;
             ViewBag.ListTable = tableDAO.GetAllTableByInvoiceId(invoiceID);
             return View("Details");
@@ -73,7 +73,8 @@ namespace restaurant.Controllers
                 id = Common.CreateKey.Invoice(),
                 customerName = customerName,
                 customerPhone = customerPhone,
-                status = true
+                status = true,
+                dataCreate = DateTime.Now
             };
             invoiceDAO.Add(invoice);
             return Json(invoice, JsonRequestBehavior.AllowGet);

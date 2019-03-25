@@ -44,7 +44,7 @@ namespace restaurant
 
         private void UpdateWaittingFoodForClients()
         {
-            var listInvoiceWatting = invoiceDetailsDAO.GetAllInvoiceDetailsWaiting().Select(item => new
+            var listInvoiceWatting = invoiceDetailsDAO.GetAllWaiting().Select(item => new
             {
                 item.tableID,
                 item.Product.productName,

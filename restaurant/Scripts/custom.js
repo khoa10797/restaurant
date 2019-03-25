@@ -74,6 +74,7 @@
     function init() {
         caculatePrice();
         formatMoneyForPayOrder();
+        caculatePriceInvoiceDetail();
     }
 
 
@@ -290,4 +291,42 @@
             }
         });
     });
+
+    // Format status in table invoice
+    $('.status-invoice').each(function () {
+        var status = $(this).data('status');
+        if (status == 'True')
+            $(this).text('Chưa thanh toán')
+        else
+            $(this).text('Đã thanh toán')
+    });
+
+    // Format date created in table invoice
+    $('.format-date').each(function () {
+        var s = $(this).data('date').split(' ');
+        var day = s[0];
+        $(this).text(day);
+    });
+
+    // Format invoice detail
+
+    function caculatePriceInvoiceDetail() {
+        let price = 0;
+        $(".row-invoice-detail").each(function () {
+
+            $(this).find('td').each(function () {
+                let priceProduct = $(this).data('price');
+                let inputVal = $(this).data('values');
+
+                $(this).find('.price-product').text(parseFloat(priceProduct * 1000).toFixed(0).replace(/(\d)(?=(\d{3})+\b)/g, "$1,"));
+                if ($.isNumeric(inputVal)) {
+                    price += parseFloat(inputVal);
+                    $(this).find('.total-price-product').text(parseFloat(inputVal * 1000).toFixed(0).replace(/(\d)(?=(\d{3})+\b)/g, "$1,"));
+                }
+            });
+
+        });
+        price = (price * 1000).toFixed(0).replace(/(\d)(?=(\d{3})+\b)/g, "$1,");
+        $("#total-price-invoice").text("Tổng tiền: " + price + " VNĐ");
+    }
 });

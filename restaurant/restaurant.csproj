@@ -262,6 +262,8 @@
     <Content Include="Areas\Admin\Views\Product\Create.cshtml" />
     <Content Include="Areas\Admin\Views\User\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Report\Revenue.cshtml" />
+    <Content Include="Areas\Admin\Views\Report\FindInvoice.cshtml" />
+    <Content Include="Areas\Admin\Views\Report\InvoiceDetail.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />

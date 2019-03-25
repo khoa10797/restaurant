@@ -1,0 +1,31 @@
+﻿@model List<Models.EF.InvoiceDetail>
+@{
+    ViewBag.Title = "InvoiceDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table class="table table-responsive-sm">
+    <thead>
+        <tr>
+            <th>Tên món</th>
+            <th>Số bàn</th>
+            <th>Số lượng</th>
+            <th>Đơn giá</th>
+            <th>Thành tiền</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="row-invoice-detail">
+                <td>@item.Product.productName</td>
+                <td>@item.Table.id</td>
+                <td>@item.quantity</td>
+                <td data-price="@item.Product.price"><span class="price-product"></span></td>
+                <td data-values="@(item.quantity * item.Product.price)"><span class="total-price-product"></span></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<h5 id="total-price-invoice" style="color: red;"></h5>
+

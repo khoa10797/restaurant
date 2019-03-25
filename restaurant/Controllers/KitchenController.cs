@@ -29,7 +29,7 @@ namespace restaurant.Controllers
 
         private void SetViewBag()
         {
-            ViewBag.ListOrder = invoiceDetailsDAO.GetAllInvoiceDetailsWaiting();
+            ViewBag.ListOrder = invoiceDetailsDAO.GetAllWaiting();
         }
     }
 }

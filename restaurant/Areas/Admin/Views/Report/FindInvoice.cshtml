@@ -1,0 +1,38 @@
+﻿@model List<Models.EF.Invoice>
+@{
+    ViewBag.Title = "FindInvoice";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("FindInvoice", "Report", FormMethod.Get, new { @class = "form-inline" }))
+{
+    <label>Chọn ngày:</label>
+    <input type="date" class="form-control" name="date" />
+    <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Mã hóa đơn</th>
+            <th>Tên khách</th>
+            <th>Số điện thoại</th>
+            <th>Trạng thái</th>
+            <th>Ngày tạo</th>
+            <th> </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="row-table-invoice">
+                <td>@item.id</td>
+                <td>@item.customerName</td>
+                <td>@item.customerPhone</td>
+                <td class="status-invoice" data-status="@item.status"></td>
+                <td class="format-date" data-date="@item.dataCreate"></td>
+                <td><a href="@Url.Action("GetInovoiceDetails", "Report", new { invoiceID =  item.id})">Chi tiết</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

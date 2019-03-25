@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
+using System.Data.SqlClient;
 
 namespace Models.DAO
 {
@@ -12,7 +13,7 @@ namespace Models.DAO
     {
         private RestaurantDbContext dbContext = new RestaurantDbContext();
 
-        public IQueryable<InvoiceDetail> GetAllByInvoiceAndTable(string invoiceID, string tableID)
+        public IQueryable<InvoiceDetail> GetByInvoiceAndTable(string invoiceID, string tableID)
         {
             return dbContext.InvoiceDetails
                 .AsQueryable()
@@ -21,7 +22,12 @@ namespace Models.DAO
                 .Include(x => x.Invoice);
         }
 
-        public IQueryable<InvoiceDetail> GetAllInvoiceDetailsWaiting()
+        public IQueryable<InvoiceDetail> GetByInvoiceID(string invoiceID)
+        {
+            return dbContext.InvoiceDetails.Where(item => item.invoiceID == invoiceID);
+        }
+
+        public IQueryable<InvoiceDetail> GetAllWaiting()
         {
             return dbContext.InvoiceDetails.Where(item => item.status == true)
                 .Include(x => x.Product)
@@ -65,5 +71,9 @@ namespace Models.DAO
             return id;
         }
 
+        public IQueryable<InvoiceDetail> GetAll()
+        {
+            return dbContext.InvoiceDetails;
+        }
     }
 }

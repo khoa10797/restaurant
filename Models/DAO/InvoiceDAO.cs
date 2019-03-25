@@ -27,7 +27,7 @@ namespace Models.DAO
             return invoice.id;
         }
 
-        public Invoice GetInvoiceById(string id)
+        public Invoice GetById(string id)
         {
             return dbContext.Invoices.First(invoice => invoice.id == id);
         }
@@ -47,6 +47,16 @@ namespace Models.DAO
             var invoice = dbContext.Invoices.First(item => item.id == invoiceID);
             invoice.status = false;
             dbContext.SaveChanges();
+        }
+
+        public IQueryable<Invoice> GetAllByDate(DateTime date)
+        {
+            return dbContext.Invoices.Where(item => item.dataCreate == date);
+        }
+
+        public IQueryable<Invoice> GetAllInvoice()
+        {
+            return dbContext.Invoices;
         }
     }
 }

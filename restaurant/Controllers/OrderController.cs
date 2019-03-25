@@ -39,8 +39,8 @@ namespace restaurant.Controllers
             ViewBag.TableID = tableID;
             ViewBag.InvoiceID = invoiceID;
             ViewBag.ListTable = new SelectList(tableDAO.GetAllTable().Where(table => table.status == true), "id", "id", tableID);
-            ViewBag.ListOrder = invoiceDetailsDAO.GetAllByInvoiceAndTable(invoiceID, tableID).Where(x => x.status == true);
-            ViewBag.ListInvoiceDetail = invoiceDetailsDAO.GetAllByInvoiceAndTable(invoiceID, tableID).Where(x => x.status == false);
+            ViewBag.ListOrder = invoiceDetailsDAO.GetByInvoiceAndTable(invoiceID, tableID).Where(x => x.status == true);
+            ViewBag.ListInvoiceDetail = invoiceDetailsDAO.GetByInvoiceAndTable(invoiceID, tableID).Where(x => x.status == false);
         }
     }
 }
