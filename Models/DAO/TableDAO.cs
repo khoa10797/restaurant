@@ -16,7 +16,7 @@ namespace Models.DAO
             return dbContext.Tables.AsQueryable();
         }
 
-        public List<Table> GetAllTableByInvoiceId(string invoiceId)
+        public List<Table> GetTableByInvoiceId(string invoiceId)
         {
             return dbContext.Invoices.Where(invoice => invoice.id == invoiceId).First().Tables.ToList();
         }
@@ -44,6 +44,11 @@ namespace Models.DAO
             var table = dbContext.Tables.First(item => item.id == tableID);
             table.status = !table.status;
             dbContext.SaveChanges();
+        }
+
+        public IQueryable<Table> GetTableHasPeople()
+        {
+            return dbContext.Tables.Where(item => item.status == true);
         }
     }
 }

@@ -35,7 +35,7 @@ namespace restaurant.Controllers
         [Credential(roleID = "VIEW_INVOICE")]
         public ActionResult PayDetails(string invoiceID)
         {
-            List<Table> tables = tableDAO.GetAllTableByInvoiceId(invoiceID);
+            List<Table> tables = tableDAO.GetTableByInvoiceId(invoiceID);
             List<InvoiceDetail> invoiceDetails = new List<InvoiceDetail>();
 
             tables.ForEach(table =>
@@ -48,19 +48,20 @@ namespace restaurant.Controllers
 
             ViewBag.Invoice = invoiceDAO.GetById(invoiceID);
             ViewBag.ListInvoiceDetails = invoiceDetails;
-            ViewBag.ListTable = tableDAO.GetAllTableByInvoiceId(invoiceID);
+            ViewBag.ListTable = tableDAO.GetTableByInvoiceId(invoiceID);
             return View("Details");
         }
 
         [Credential(roleID = "PAY_INVOICE")]
         public ActionResult PayInvoice(string invoiceID)
         {
-            List<Table> tables = tableDAO.GetAllTableByInvoiceId(invoiceID);
+            List<Table> tables = tableDAO.GetTableByInvoiceId(invoiceID);
             tables.ForEach(table =>
             {
                 tableDAO.ChangeStatus(table.id);
             });
             invoiceDAO.SetOffStatus(invoiceID);
+            invoiceDAO.CaculatingMoney(invoiceID);
             return RedirectToAction("Index");
         }
 

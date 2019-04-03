@@ -1,15 +1,15 @@
 ﻿@model List<Models.EF.Invoice>
 @{
-    ViewBag.Title = "FindInvoice";
+    ViewBag.Title = "Hóa đơn";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@using (Html.BeginForm("FindInvoice", "Report", FormMethod.Get, new { @class = "form-inline" }))
-{
-    <label>Chọn ngày:</label>
-    <input type="date" class="form-control" name="date" />
-    <button type="submit" class="btn btn-primary">Tìm kiếm</button>
-}
+<div class="form-inline">
+    <label style="margin-right: 5px">Chọn ngày:</label>
+    <input id="datetime-picker" type="date" class="form-control" name="date" />
+</div>
+
+<br />
 
 <table class="table">
     <thead>

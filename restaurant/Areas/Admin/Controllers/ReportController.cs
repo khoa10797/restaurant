@@ -14,8 +14,14 @@ namespace restaurant.Areas.Admin.Controllers
         InvoiceDetailsDAO invoiceDetailsDAO = new InvoiceDetailsDAO();
 
         // GET: Admin/Report
-        public ActionResult Revenue()
+        public ActionResult Revenue(int? year)
         {
+            if (year == null)
+                year = DateTime.Now.Year;
+            List<double> prices = new List<double>();
+            for (int i = 1; i <= 12; i++)
+                prices.Add(invoiceDAO.FindRevenueByMonth(i, year));
+            ViewBag.Revenue = prices;
             return View();
         }
 
@@ -25,7 +31,7 @@ namespace restaurant.Areas.Admin.Controllers
             if (!date.HasValue)
                 model = invoiceDAO.GetAllInvoice().ToList();
             else
-                model = invoiceDAO.GetAllByDate(date.Value).ToList();
+                model = invoiceDAO.GetByDate(date.Value).ToList();
             return View(model);
         }
 

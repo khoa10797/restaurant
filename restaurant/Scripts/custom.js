@@ -329,4 +329,10 @@
         price = (price * 1000).toFixed(0).replace(/(\d)(?=(\d{3})+\b)/g, "$1,");
         $("#total-price-invoice").text("Tổng tiền: " + price + " VNĐ");
     }
+
+    // Event change datetime picker
+    $('#datetime-picker').change(function () {
+        var date = $(this).val();
+        window.location.replace("/Admin/Report/FindInvoice?date=" + date);
+    });
 });

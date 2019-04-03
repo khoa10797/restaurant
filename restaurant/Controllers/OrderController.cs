@@ -19,8 +19,10 @@ namespace restaurant.Controllers
         private TableDAO tableDAO = new TableDAO();
 
         [Credential(roleID = "VIEW_INVOICE_D")]
-        public ActionResult Index(string tableID = "101")
+        public ActionResult Index(string tableID)
         {
+            if (tableID == null)
+                tableID = tableDAO.GetTableHasPeople().ToList()[0].id;
             SetViewBag(tableID);
             return View("Index");
         }
@@ -39,7 +41,7 @@ namespace restaurant.Controllers
             ViewBag.TableID = tableID;
             ViewBag.InvoiceID = invoiceID;
             ViewBag.ListTable = new SelectList(tableDAO.GetAllTable().Where(table => table.status == true), "id", "id", tableID);
-            ViewBag.ListOrder = invoiceDetailsDAO.GetByInvoiceAndTable(invoiceID, tableID).Where(x => x.status == true);
+            ViewBag.ListOrder = invoiceDetailsDAO.GetByInvoiceAndTable(invoiceID, tableID).Where(x => x.status == true).ToList();
             ViewBag.ListInvoiceDetail = invoiceDetailsDAO.GetByInvoiceAndTable(invoiceID, tableID).Where(x => x.status == false);
         }
     }
