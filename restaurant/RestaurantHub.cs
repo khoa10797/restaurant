@@ -13,7 +13,9 @@ namespace restaurant
     {
         private InvoiceDetailsDAO invoiceDetailsDAO = new InvoiceDetailsDAO();
         private InvoiceDAO invoiceDAO = new InvoiceDAO();
+        private ProductDAO productDAO = new ProductDAO();
 
+        [Credential(roleID = "ADD_INVOICE_D")]
         public void AddNewOrder(string tableID, List<Cart> listCart)
         {
             List<InvoiceDetail> invoiceDetails = new List<InvoiceDetail>();
@@ -35,11 +37,26 @@ namespace restaurant
             UpdateWaittingFoodForClients();
         }
 
+        [Credential(roleID = "REMOVE_INVOICE_D")]
         public void RemoveOrder(int invoiceDetailsId)
         {
-            invoiceDetailsDAO.Remove(invoiceDetailsId);
+            try
+            {
+                invoiceDetailsDAO.Remove(invoiceDetailsId);
+                UpdateWaittingFoodForClients();
+            }
+            catch { }
+        }
 
-            UpdateWaittingFoodForClients();
+        public void CompleteOrder(int invoiceDetailsID, string productId, int quantity)
+        {
+            try
+            {
+                invoiceDetailsDAO.SetStatusOff(invoiceDetailsID);
+                productDAO.UpdateBuyCount(productId, quantity);
+                UpdateWaittingFoodForClients();
+            }
+            catch { }
         }
 
         private void UpdateWaittingFoodForClients()

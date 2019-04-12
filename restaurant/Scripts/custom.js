@@ -62,13 +62,22 @@
         //Remove order
 
         $('.remove-order').click(function () {
-            let invoiceDetailsId = $(this).data('id');
+            let id = $(this).data('id');
             let tableId = $(this).data('values');
-            hub.server.removeOrder(invoiceDetailsId).done(function () {
+            hub.server.removeOrder(id).done(function () {
                 window.location.replace('/Order/Index?tableID=' + tableId);
             });
         });
 
+        //Complete
+
+        $('.complete-food').click(function () {
+            var id = $(this).data('id');
+            var productId = $(this).data('product');
+            var quantity = $(this).data('quantity');
+
+            hub.server.completeOrder(id, productId, quantity);
+        });
     });
 
     function init() {

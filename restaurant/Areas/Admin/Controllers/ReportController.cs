@@ -1,5 +1,6 @@
 ﻿using Models.DAO;
 using Models.EF;
+using restaurant.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace restaurant.Areas.Admin.Controllers
         InvoiceDetailsDAO invoiceDetailsDAO = new InvoiceDetailsDAO();
 
         // GET: Admin/Report
+        [Credential(roleID = "VIEW_REPORT")]
         public ActionResult Revenue(int? year)
         {
             if (year == null)
@@ -25,6 +27,7 @@ namespace restaurant.Areas.Admin.Controllers
             return View();
         }
 
+        [Credential(roleID = "VIEW_REPORT")]
         public ActionResult FindInvoice(DateTime? date)
         {
             List<Invoice> model;
@@ -35,6 +38,7 @@ namespace restaurant.Areas.Admin.Controllers
             return View(model);
         }
 
+        [Credential(roleID = "VIEW_REPORT")]
         public ActionResult GetInovoiceDetails(string invoiceID)
         {
             var model = invoiceDetailsDAO.GetByInvoiceID(invoiceID).ToList();

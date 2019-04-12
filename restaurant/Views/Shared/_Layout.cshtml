@@ -40,9 +40,13 @@
                 <a href="/Gallery" class="list-group-item list-group-item-action bg-light"><i class="fas fa-book"></i> Thực đơn</a>
                 <a href="/Kitchen" class="list-group-item list-group-item-action bg-light"><i class="fas fa-utensils"></i> Nhà bếp</a>
                 <a href="/Order" class="list-group-item list-group-item-action bg-light"><i class="fas fa-table"></i> Xem thông tin bàn</a>
-                <a href="/Invoice" class="list-group-item list-group-item-action bg-light"><i class="fas fa-file-invoice-dollar"></i> Hóa đơn</a>
-                @if (user != null && user.groupID == "Admin")
+                @if (user != null && user.groupID == "Cashier")
                 {
+                    <a href="/Invoice" class="list-group-item list-group-item-action bg-light"><i class="fas fa-file-invoice-dollar"></i> Hóa đơn</a>
+                }
+                @if (user.groupID == "Admin")
+                {
+                    <a href="/Invoice" class="list-group-item list-group-item-action bg-light"><i class="fas fa-file-invoice-dollar"></i> Hóa đơn</a>
                     <a href="/Admin/User" class="list-group-item list-group-item-action bg-light"><i class="fas fa-user-alt"></i> Nhân viên</a>
                     <a href="/Admin/Product" class="list-group-item list-group-item-action bg-light"><i class="fas fa-cookie"></i> Món ăn</a>
                     <a class="list-group-item list-group-item-action bg-light" data-toggle="collapse" href="#collapseReport" aria-expanded="false" aria-controls="collapseReport">

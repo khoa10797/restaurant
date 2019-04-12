@@ -20,9 +20,6 @@ namespace restaurant.Controllers
             var products = productDAO.GetByCategoryID(categoryId).ToList();
 
             ViewBag.CategoryId = categoryId;
-            ViewBag.TopKV = productDAO.SelectTopByCategory("01");
-            ViewBag.TopMC = productDAO.SelectTopByCategory("02");
-            ViewBag.TopTM = productDAO.SelectTopByCategory("03");
             return View(products.OrderBy(product => product.buyCount).ToPagedList(pageNumber, pageSize));
         }
     }

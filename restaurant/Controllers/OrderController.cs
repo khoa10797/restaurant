@@ -27,14 +27,6 @@ namespace restaurant.Controllers
             return View("Index");
         }
 
-        [Credential(roleID = "REMOVE_INVOICE_D")]
-        public ActionResult DeleteInvoiceDetails(int invoiceDetailsID, string tableID)
-        {
-            invoiceDetailsDAO.Remove(invoiceDetailsID);
-            SetViewBag(tableID);
-            return View("Index");
-        }
-
         private void SetViewBag(string tableID)
         {
             var invoiceID = invoiceDAO.GetLastInvoiceByTableId(tableID).id;

@@ -132,6 +132,11 @@ tr td:first-child {
 }
 /*Kitchen*/
 
+.complete-food{
+    cursor: pointer;
+    color: red;
+}
+
 /*Pay*/
 #table-pay a:hover {
     text-decoration: none;
